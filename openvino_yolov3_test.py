@@ -48,7 +48,7 @@ class _model_postprocess():
         self.sess = tf.Session(graph=graph)
 
     def _post_process(self, image_ir, image):
-        seg_map = self.sess.run("SemanticPredictions:0", feed_dict={"ImageTensor:0": [image], "new_input:0": np.int64(image_ir)})
+        seg_map = self.sess.run("output_boxes:0", feed_dict={"ImageTensor:0": [image], "new_input:0": np.int64(image_ir)})
         return seg_map
 
 
