@@ -43,7 +43,7 @@ def main(argv=None):
 
     print(detections.name)
     # Sets the output nodes in the current session
-    #boxes = detections_boxes(detections)
+    boxes = detections_boxes(detections)
 
     with tf.Session() as sess:
         sess.run(load_ops)

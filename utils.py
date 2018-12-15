@@ -44,12 +44,12 @@ def freeze_graph(sess, output_graph, tiny):
     output_node_names=[]
     if tiny:
         output_node_names = [
-            "detector/yolo-v3-tiny/detections",
+            "output_boxes",
             "inputs",
         ]
     else:
         output_node_names = [
-            "detector/yolo-v3/detections",
+            "output_boxes",
             "inputs",
         ]
     output_node_names = ",".join(output_node_names)
