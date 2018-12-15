@@ -1,6 +1,6 @@
-curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1l9sljwD8jRvMLLRwnMnpqIXKe1Bj_Bxy" > /dev/null
+curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1Ge2Bk98xGqvLZuVIkKxoEP31vp5WGw_N" > /dev/null
 CODE="$(awk '/_warning_/ {print $NF}' /tmp/cookie)"
-curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1l9sljwD8jRvMLLRwnMnpqIXKe1Bj_Bxy" -o tiny-YoloV3FP32.tar.gz
+curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1Ge2Bk98xGqvLZuVIkKxoEP31vp5WGw_N" -o tiny-YoloV3FP32.tar.gz
 tar -zxvf tiny-YoloV3FP32.tar.gz
 rm tiny-YoloV3FP32.tar.gz
 
