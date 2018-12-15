@@ -8,38 +8,25 @@ import time
 import yolo_v3
 import yolo_v3_tiny
 
-from utils import load_coco_names, draw_boxes, get_boxes_and_inputs, get_boxes_and_inputs_pb, non_max_suppression, \
-                  load_graph, letter_box_image
+from utils import load_coco_names, draw_boxes, get_boxes_and_inputs, get_boxes_and_inputs_pb, non_max_suppression, load_graph, letter_box_image
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_string(
-    'input_img', '', 'Input image')
-tf.app.flags.DEFINE_string(
-    'output_img', '', 'Output image')
-tf.app.flags.DEFINE_string(
-    'class_names', 'coco.names', 'File with class names')
-tf.app.flags.DEFINE_string(
-    'weights_file', 'yolov3.weights', 'Binary file with detector weights')
-tf.app.flags.DEFINE_string(
-    'data_format', 'NCHW', 'Data format: NCHW (gpu only) / NHWC')
-tf.app.flags.DEFINE_string(
-    'ckpt_file', './saved_model/model.ckpt', 'Checkpoint file')
-tf.app.flags.DEFINE_string(
-    'frozen_model', '', 'Frozen tensorflow protobuf model')
-tf.app.flags.DEFINE_bool(
-    'tiny', False, 'Use tiny version of YOLOv3')
+tf.app.flags.DEFINE_string('input_img', '', 'Input image')
+tf.app.flags.DEFINE_string('output_img', '', 'Output image')
+tf.app.flags.DEFINE_string('class_names', 'coco.names', 'File with class names')
+tf.app.flags.DEFINE_string('weights_file', 'yolov3.weights', 'Binary file with detector weights')
+tf.app.flags.DEFINE_string('data_format', 'NCHW', 'Data format: NCHW (gpu only) / NHWC')
+tf.app.flags.DEFINE_string('ckpt_file', './saved_model/model.ckpt', 'Checkpoint file')
+tf.app.flags.DEFINE_string('frozen_model', '', 'Frozen tensorflow protobuf model')
+tf.app.flags.DEFINE_bool('tiny', False, 'Use tiny version of YOLOv3')
 
-tf.app.flags.DEFINE_integer(
-    'size', 416, 'Image size')
+tf.app.flags.DEFINE_integer('size', 416, 'Image size')
 
-tf.app.flags.DEFINE_float(
-    'conf_threshold', 0.5, 'Confidence threshold')
-tf.app.flags.DEFINE_float(
-    'iou_threshold', 0.4, 'IoU threshold')
+tf.app.flags.DEFINE_float('conf_threshold', 0.5, 'Confidence threshold')
+tf.app.flags.DEFINE_float('iou_threshold', 0.4, 'IoU threshold')
 
-tf.app.flags.DEFINE_float(
-    'gpu_memory_fraction', 1.0, 'Gpu memory fraction to use')
+tf.app.flags.DEFINE_float('gpu_memory_fraction', 1.0, 'Gpu memory fraction to use')
 
 def main(argv=None):
 
@@ -65,8 +52,7 @@ def main(argv=None):
 
         with tf.Session(graph=frozenGraph, config=config) as sess:
             t0 = time.time()
-            detected_boxes = sess.run(
-                boxes, feed_dict={inputs: [img_resized]})
+            detected_boxes = sess.run(boxes, feed_dict={inputs: [img_resized]})
 
     else:
         if FLAGS.tiny:
@@ -84,8 +70,7 @@ def main(argv=None):
             print('Model restored in {:.2f}s'.format(time.time()-t0))
 
             t0 = time.time()
-            detected_boxes = sess.run(
-                boxes, feed_dict={inputs: [img_resized]})
+            detected_boxes = sess.run(boxes, feed_dict={inputs: [img_resized]})
 
     filtered_boxes = non_max_suppression(detected_boxes,
                                          confidence_threshold=FLAGS.conf_threshold,
