@@ -68,8 +68,7 @@ bazel run tensorflow/tools/benchmark:benchmark_model -- \
 #========================================================================================================
 
 
-cd git;cd tensorflow
-bazel-bin/tensorflow/tools/graph_transforms/summarize_graph --in_graph=/home/b920405/git/OpenVINO-YoloV3/pbmodels/frozen_darknet_yolov3_model.pb
+
 
 
 sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
