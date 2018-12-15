@@ -47,7 +47,7 @@ def main(argv=None):
 
     with tf.Session() as sess:
         sess.run(load_ops)
-        freeze_graph(sess, FLAGS.output_graph)
+        freeze_graph(sess, FLAGS.output_graph, FLAGS.tiny)
 
 if __name__ == '__main__':
     tf.app.run()
