@@ -8,3 +8,4 @@ frozen_tiny_yolo_v3.bin
 frozen_tiny_yolo_v3.mapping
 frozen_tiny_yolo_v3.xml
 *.tar.gz
+*.pbtxt
