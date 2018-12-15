@@ -42,9 +42,14 @@ def load_graph(frozen_graph_filename):
 def freeze_graph(sess, output_graph):
 
     output_node_names = [
-        "output_boxes",
+        "detector/yolo-v3/detections",
         "inputs",
     ]
+    #output_node_names = ",".join(output_node_names)
+    #output_node_names = [
+    #    "detector/yolo-v3-tiny/detections",
+    #    "inputs",
+    #]
     output_node_names = ",".join(output_node_names)
 
     output_graph_def = tf.graph_util.convert_variables_to_constants(

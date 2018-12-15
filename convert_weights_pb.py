@@ -41,8 +41,9 @@ def main(argv=None):
         detections = model(inputs, len(classes), data_format=FLAGS.data_format)
         load_ops = load_weights(tf.global_variables(scope='detector'), FLAGS.weights_file)
 
+    print(detections.name)
     # Sets the output nodes in the current session
-    boxes = detections_boxes(detections)
+    #boxes = detections_boxes(detections)
 
     with tf.Session() as sess:
         sess.run(load_ops)

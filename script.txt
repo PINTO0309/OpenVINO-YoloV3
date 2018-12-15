@@ -1,25 +1,116 @@
+#============================================
+python3 convert_weights.py \
+--class_names coco.names \
+--weights_file weights/yolov3.weights \
+--data_format NHWC
+
+python3 convert_weights_pb.py \
+--class_names coco.names \
+--weights_file weights/yolov3.weights \
+--data_format NHWC \
+--output_graph pbmodels/frozen_yolo_v3.pb
+#============================================
+
+#============================================
+python3 convert_weights.py \
+--class_names coco.names \
+--weights_file weights/yolov3.weights \
+--data_format NHWC \
+--tiny
+
+python3 convert_weights_pb.py \
+--class_names coco.names \
+--weights_file weights/yolov3.weights \
+--data_format NHWC \
+--tiny \
+--output_graph pbmodels/frozen_tiny_yolo_v3.pb
+#============================================
+
+
 cd git;cd tensorflow
 bazel-bin/tensorflow/tools/graph_transforms/summarize_graph --in_graph=/home/b920405/git/OpenVINO-YoloV3/pbmodels/frozen_yolo_v3.pb
+#========================================================================================================
+Found 1 possible inputs: (name=inputs, type=float(1), shape=[?,416,416,3]) 
+No variables spotted.
+Found 1 possible outputs: (name=detector/yolo-v3/detections, op=Identity) 
+Found 62002024 (62.00M) const parameters, 0 (0) variable parameters, and 0 control_edges
+Op types used: 530 Const, 372 Identity, 87 Mul, 75 Conv2D, 72 FusedBatchNorm, 72 Maximum, 26 Add, \
+24 Reshape, 12 ConcatV2, 9 Sigmoid, 6 Tile, 6 Range, 5 Pad, 3 Pack, 3 Fill, 3 Exp, 3 SplitV, \
+3 BiasAdd, 2 ResizeNearestNeighbor, 1 Placeholder, 1 RealDiv
+To use with tensorflow/tools/benchmark:benchmark_model try these arguments:
+bazel run tensorflow/tools/benchmark:benchmark_model -- \
+--graph=/home/b920405/git/OpenVINO-YoloV3/pbmodels/frozen_yolo_v3.pb \
+--show_flops \
+--input_layer=inputs \
+--input_layer_type=float \
+--input_layer_shape=-1,416,416,3 \
+--output_layer=detector/yolo-v3/detections
+#========================================================================================================
 
-
-sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
---input_model pbmodels/frozen_yolo_v3.pb \
---output_dir lrmodels/YoloV3/FP32 \
---input Placeholder \
---output concat_1 \
---data_type FP32 \
---batch 1 \
---tensorflow_use_custom_operations_config yolo_v3_changed.json
-
+cd git;cd tensorflow
+bazel-bin/tensorflow/tools/graph_transforms/summarize_graph --in_graph=/home/b920405/git/OpenVINO-YoloV3/pbmodels/frozen_tiny_yolo_v3.pb
+#========================================================================================================
+Found 1 possible inputs: (name=inputs, type=float(1), shape=[?,416,416,3]) 
+No variables spotted.
+Found 1 possible outputs: (name=detector/yolo-v3-tiny/detections, op=Identity) 
+Found 8858848 (8.86M) const parameters, 0 (0) variable parameters, and 0 control_edges
+Op types used: 128 Const, 63 Identity, 21 Mul, 16 Reshape, 13 Conv2D, 11 FusedBatchNorm, 11 Maximum, \
+8 ConcatV2, 6 Sigmoid, 6 MaxPool, 4 Tile, 4 Range, 2 Pack, 2 Fill, 2 Exp, 2 BiasAdd, 2 SplitV, \
+2 Add, 1 Placeholder, 1 RealDiv, 1 ResizeNearestNeighbor
+To use with tensorflow/tools/benchmark:benchmark_model try these arguments:
+bazel run tensorflow/tools/benchmark:benchmark_model -- \
+--graph=/home/b920405/git/OpenVINO-YoloV3/pbmodels/frozen_tiny_yolo_v3.pb \
+--show_flops \
+--input_layer=inputs \
+--input_layer_type=float \
+--input_layer_shape=-1,416,416,3 \
+--output_layer=detector/yolo-v3-tiny/detections
+#========================================================================================================
 
 
 cd git;cd tensorflow
 bazel-bin/tensorflow/tools/graph_transforms/summarize_graph --in_graph=/home/b920405/git/OpenVINO-YoloV3/pbmodels/frozen_darknet_yolov3_model.pb
 
+
 sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
---input_model pbmodels/frozen_darknet_yolov3_model.pb \
---output_dir lrmodels/FP32 \
+--input_model pbmodels/frozen_yolo_v3.pb \
+--output_dir lrmodels/YoloV3/FP32 \
 --input inputs \
---output output_boxes \
+--output detector/yolo-v3/detections \
 --data_type FP32 \
---batch 1
+--batch 1 \
+--tensorflow_use_custom_operations_config yolo_v3_changed.json
+
+sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
+--input_model pbmodels/frozen_yolo_v3.pb \
+--output_dir lrmodels/YoloV3/FP16 \
+--input inputs \
+--output detector/yolo-v3/detections \
+--data_type FP16 \
+--batch 1 \
+--tensorflow_use_custom_operations_config yolo_v3_changed.json
+
+
+
+
+sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
+--input_model pbmodels/frozen_tiny_yolo_v3.pb \
+--output_dir lrmodels/tiny-YoloV3/FP32 \
+--input inputs \
+--output detector/yolo-v3-tiny/detections \
+--data_type FP32 \
+--batch 1 \
+--offload_unsupported_operations_to_tf
+
+sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
+--input_model pbmodels/frozen_tiny_yolo_v3.pb \
+--output_dir lrmodels/tiny-YoloV3/FP16 \
+--input inputs \
+--output detector/yolo-v3-tiny/detections \
+--data_type FP16 \
+--batch 1 \
+--offload_unsupported_operations_to_tf
+
+
+
+
