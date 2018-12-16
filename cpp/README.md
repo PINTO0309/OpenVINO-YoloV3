@@ -44,7 +44,7 @@ Options:
 
 Running the application with the empty list of options yields the usage message given above and an error message.
 You can use the following command to do inference on GPU with a pre-trained object detection model:
-### USB Camera Mode + Full size YoloV3 (Selectable cam0/cam1/cam2)
+### CPU + USB Camera Mode + Full size YoloV3 (Selectable cam0/cam1/cam2)
 ```bash
 $ cd cpp
 $ ./object_detection_demo_yolov3_async -i cam0 -m ../lrmodels/YoloV3/FP32/frozen_yolo_v3.xml -l ../lib/libcpu_extension.so -d CPU
