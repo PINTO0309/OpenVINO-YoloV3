@@ -1,3 +1,7 @@
+#
+#https://software.intel.com/en-us/articles/OpenVINO-Using-TensorFlow#inpage-nav-8
+#
+
 import sys
 import os
 from argparse import ArgumentParser
@@ -18,24 +22,6 @@ def build_argparser():
 
     return parser
 
-def detections_boxes(detections):
-    """
-    Converts center x, center y, width and height values to coordinates of top left and bottom right points.
-    :param detections: outputs of YOLO v3 detector of shape (?, 10647, (num_classes + 5))
-    :return: converted detections of same shape as input
-    """
-    center_x, center_y, width, height, attrs = tf.split(detections, [1, 1, 1, 1, -1], axis=-1)
-    w2 = width / 2
-    h2 = height / 2
-    x0 = center_x - w2
-    y0 = center_y - h2
-    x1 = center_x + w2
-    y1 = center_y + h2
-    boxes = tf.concat([x0, y0, x1, y1], axis=-1)
-    detections = tf.concat([boxes, attrs], axis=-1, name="output_boxes")
-
-    return detections
-
 
 class _model_postprocess():
     def __init__(self):
@@ -43,13 +29,14 @@ class _model_postprocess():
         f_handle = gfile.FastGFile("pbmodels/frozen_yolo_v3.pb", "rb")
         graph_def = tf.GraphDef.FromString(f_handle.read())
         with graph.as_default():
-            new_input = tf.placeholder(tf.int64, shape=(1, 416, 416), name="new_input")
-            tf.import_graph_def(graph_def, input_map={"ArgMax:0": new_input}, name='')
+            #detections: outputs of YOLOV3 detector of shape (?, 10647, (num_classes + 5))
+            new_input = tf.placeholder(tf.float32, shape=(1, 10647, 85), name="new_input")
+            tf.import_graph_def(graph_def, input_map={"split:0": new_input}, name='')
         self.sess = tf.Session(graph=graph)
 
-    def _post_process(self, image_ir, image):
-        seg_map = self.sess.run("output_boxes:0", feed_dict={"ImageTensor:0": [image], "new_input:0": np.int64(image_ir)})
-        return seg_map
+    def _post_process(self, detections):
+        detected_boxes = self.sess.run("output_boxes:0", feed_dict={"new_input:0": detections})
+        return detected_boxes
 
 
 _post = _model_postprocess()
@@ -94,6 +81,9 @@ def main_IE_infer():
     # Read IR
     net = IENetwork.from_ir(model=model_xml, weights=model_bin)
     input_blob = next(iter(net.inputs))
+    out_blob   = next(iter(net.outputs))
+    print("input_blob =", input_blob)
+    print("out_blob =", out_blob)
     exec_net = plugin.load(network=net)
 
     while cap.isOpened():
@@ -115,29 +105,39 @@ def main_IE_infer():
         print("image =", image.shape)
         print("prepimg =", prepimg.shape)
         prepimg = prepimg.transpose((0, 3, 1, 2))  #NHWC to NCHW
-        res = exec_net.infer(inputs={input_blob: prepimg})
-        #result = _post._post_process(res["ArgMax/Squeeze"], image)[0]
+        #res = exec_net.infer(inputs={input_blob: prepimg})
+        exec_net.start_async(request_id=0, inputs={input_blob: prepimg})
 
-        reslist = list(res.keys())
+        if exec_net.requests[0].wait(-1) == 0:
+            outputs = exec_net.requests[0].outputs[out_blob]
+
+        #print("len(res) =", len(res))
+        print("outputs.shape =", outputs.shape)
+
+        #result = _post._post_process(res)
+        #print(result)
+
+        #reslist = list(res.keys())
         #detector/yolo-v3/Conv_6/BiasAdd/YoloRegion
         #detector/yolo-v3/Conv_14/BiasAdd/YoloRegion
         #detector/yolo-v3/Conv_22/BiasAdd/YoloRegion
-        print("res =", reslist)
-        print("res(reslist[0][0]) =", len(res[reslist[0]][0]))
-        print("res(reslist[1][0]) =", len(res[reslist[1]][0]))
-        print("res(reslist[2][0]) =", len(res[reslist[2]][0]))
-        print("res(reslist[0][0][0]) =", len(res[reslist[0]][0][0]))
-        print("res(reslist[1][0][0]) =", len(res[reslist[1]][0][0]))
-        print("res(reslist[2][0][0]) =", len(res[reslist[2]][0][0]))
-        print("res(reslist[0][0][254]) =", len(res[reslist[0]][0][254]))
-        print("res(reslist[1][0][254]) =", len(res[reslist[1]][0][254]))
-        print("res(reslist[2][0][254]) =", len(res[reslist[2]][0][254]))
+
+        #print("res =", reslist)
+        #print("res(reslist[0][0]) =", len(res[reslist[0]][0]))
+        #print("res(reslist[1][0]) =", len(res[reslist[1]][0]))
+        #print("res(reslist[2][0]) =", len(res[reslist[2]][0]))
+        #print("res(reslist[0][0][0]) =", len(res[reslist[0]][0][0]))
+        #print("res(reslist[1][0][0]) =", len(res[reslist[1]][0][0]))
+        #print("res(reslist[2][0][0]) =", len(res[reslist[2]][0][0]))
+        #print("res(reslist[0][0][254]) =", len(res[reslist[0]][0][254]))
+        #print("res(reslist[1][0][254]) =", len(res[reslist[1]][0][254]))
+        #print("res(reslist[2][0][254]) =", len(res[reslist[2]][0][254]))
 
         #out1 = np.concatenate([res[reslist[0][0]], res[reslist[1][0]], res[reslist[2][0]]], axis=-1)
         #out1 = np.r_[res[reslist[0][0]], res[reslist[1][0]], res[reslist[2][0]]]
         #out2 = np.split(out1, [1, 1, 1, 1, -1], axis=-1)
-        out2 = detections_boxes(detections)
-        print(out2)
+        #out2 = detections_boxes(detections)
+        #print(out2)
         break
 
         outputimg = Image.fromarray(np.uint8(result), mode="P")

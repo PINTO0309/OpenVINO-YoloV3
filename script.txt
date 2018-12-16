@@ -69,7 +69,7 @@ bazel run tensorflow/tools/benchmark:benchmark_model -- \
 
 
 
-
+#Output = Tensor("detector/yolo-v3/detections:0", shape=(?, 10647, 85), dtype=float32)
 
 sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
 --input_model pbmodels/frozen_yolo_v3.pb \
@@ -88,6 +88,12 @@ sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_
 --data_type FP16 \
 --batch 1 \
 --tensorflow_use_custom_operations_config yolo_v3_changed.json
+
+
+
+
+
+
 
 
 

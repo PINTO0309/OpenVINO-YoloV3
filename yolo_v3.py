@@ -229,34 +229,33 @@ def yolo_v3(inputs, num_classes, is_training=False, data_format='NCHW', reuse=Fa
 
             with tf.variable_scope('yolo-v3'):
                 route, inputs = _yolo_block(inputs, 512)
-                detect_1 = _detection_layer(
-                    inputs, num_classes, _ANCHORS[6:9], img_size, data_format)
+                detect_1 = _detection_layer(inputs, num_classes, _ANCHORS[6:9], img_size, data_format)
                 detect_1 = tf.identity(detect_1, name='detect_1')
+                print("detect_1.shape =", detect_1.shape)
 
                 inputs = _conv2d_fixed_padding(route, 256, 1)
                 upsample_size = route_2.get_shape().as_list()
                 inputs = _upsample(inputs, upsample_size, data_format)
-                inputs = tf.concat([inputs, route_2],
-                                   axis=1 if data_format == 'NCHW' else 3)
+                inputs = tf.concat([inputs, route_2], axis=1 if data_format == 'NCHW' else 3)
 
                 route, inputs = _yolo_block(inputs, 256)
 
-                detect_2 = _detection_layer(
-                    inputs, num_classes, _ANCHORS[3:6], img_size, data_format)
+                detect_2 = _detection_layer(inputs, num_classes, _ANCHORS[3:6], img_size, data_format)
                 detect_2 = tf.identity(detect_2, name='detect_2')
+                print("detect_2.shape =", detect_2.shape)
 
                 inputs = _conv2d_fixed_padding(route, 128, 1)
                 upsample_size = route_1.get_shape().as_list()
                 inputs = _upsample(inputs, upsample_size, data_format)
-                inputs = tf.concat([inputs, route_1],
-                                   axis=1 if data_format == 'NCHW' else 3)
+                inputs = tf.concat([inputs, route_1], axis=1 if data_format == 'NCHW' else 3)
 
                 _, inputs = _yolo_block(inputs, 128)
 
-                detect_3 = _detection_layer(
-                    inputs, num_classes, _ANCHORS[0:3], img_size, data_format)
+                detect_3 = _detection_layer(inputs, num_classes, _ANCHORS[0:3], img_size, data_format)
                 detect_3 = tf.identity(detect_3, name='detect_3')
+                print("detect_3.shape =", detect_3.shape)
 
                 detections = tf.concat([detect_1, detect_2, detect_3], axis=1)
+                #detections = tf.reshape(detections, [1, detect_1.shape[1]+detect_2.shape[1]+detect_3.shape[1], num_classes+5])
                 detections = tf.identity(detections, name='detections')
                 return detections

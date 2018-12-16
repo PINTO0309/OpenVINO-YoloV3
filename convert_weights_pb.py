@@ -41,6 +41,13 @@ def main(argv=None):
         detections = model(inputs, len(classes), data_format=FLAGS.data_format)
         load_ops = load_weights(tf.global_variables(scope='detector'), FLAGS.weights_file)
 
+    #detect_1.shape = (?, 507, 85)
+    #detect_2.shape = (?, 2028, 85)
+    #detect_3.shape = (?, 8112, 85)
+    #detections.shape = (?, 10647, 85)
+    #detections = Tensor("detector/yolo-v3/detections:0", shape=(?, 10647, 85), dtype=float32)
+    print("detections.shape =", detections.shape)
+    print(detections)
     print(detections.name)
     # Sets the output nodes in the current session
     boxes = detections_boxes(detections)
