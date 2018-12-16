@@ -11,7 +11,6 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
   
 ## Environment
 
-# Environment
 - LattePanda Alpha (Intel 7th Core m3-7y30) or LaptopPC (Intel 8th Core i7-8750H)
 - Ubuntu 16.04 x86_64
 - OpenVINO toolkit 2018 R4 (2018.4.420)
