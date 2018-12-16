@@ -1,9 +1,7 @@
 # Object Detection YOLO* V3 Demo, Async API Performance Showcase
 
 This demo showcases Object Detection with YOLO* V3 and Async API.
-
-To learn more about Async API features, please refer to [Object Detection for SSD Demo, Async API Performance Showcase](./samples/object_detection_demo_ssd_async/README.md).
-
+  
 Other demo objectives are:
 * Video as input support via OpenCV*
 * Visualization of the resulting bounding boxes and text labels (from the `.labels` file) or class number (if no file is provided)
