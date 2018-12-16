@@ -1,9 +1,9 @@
-# Object Detection YOLO* V3 Demo, Async API Performance Showcase
+# Object Detection YOLO V3 Demo, Async API Performance Showcase
 
-This demo showcases Object Detection with YOLO* V3 and Async API.
+This demo showcases Object Detection with YOLO V3 and Async API.
   
 Other demo objectives are:
-* Video as input support via OpenCV*
+* Video as input support via OpenCV
 * Visualization of the resulting bounding boxes and text labels (from the `.labels` file) or class number (if no file is provided)
 * OpenCV provides resulting bounding boxes, labels, and other information.
 You can copy and paste this code without pulling Inference Engine samples helpers into your application
