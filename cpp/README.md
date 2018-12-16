@@ -29,7 +29,7 @@ object_detection_demo_yolov3_async [OPTION]
 Options:
 
     -h                        Print a usage message.
-    -i "<path>"               Required. Path to a video file (specify "cam" to work with camera).
+    -i "<path>"               Required. Path to a video file (specify "cam0" to work with camera).
     -m "<path>"               Required. Path to an .xml file with a trained model.
       -l "<absolute_path>"    Optional. Required for CPU custom layers.Absolute path to a shared library with the layers implementation.
           Or
@@ -44,10 +44,10 @@ Options:
 
 Running the application with the empty list of options yields the usage message given above and an error message.
 You can use the following command to do inference on GPU with a pre-trained object detection model:
-### USB Camera Mode
+### USB Camera Mode (cam0/cam1/cam2)
 ```bash
 $ cd cpp
-$ ./object_detection_demo_yolov3_async -i cam -m ../lrmodels/YoloV3/FP32/frozen_yolo_v3.xml -l ../lib/libcpu_extension.so -d CPU
+$ ./object_detection_demo_yolov3_async -i cam0 -m ../lrmodels/YoloV3/FP32/frozen_yolo_v3.xml -l ../lib/libcpu_extension.so -d CPU
 ```
 ### Movie File Mode
 ```bash
