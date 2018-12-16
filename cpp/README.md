@@ -44,8 +44,15 @@ Options:
 
 Running the application with the empty list of options yields the usage message given above and an error message.
 You can use the following command to do inference on GPU with a pre-trained object detection model:
-```sh
-./object_detection_demo_yolov3_async -i <path_to_video>/inputVideo.mp4 -m <path_to_model>/yolo_v3.xml -d GPU
+### USB Camera Mode
+```bash
+$ cd cpp
+$ ./object_detection_demo_yolov3_async -i cam -m ../lrmodels/YoloV3/FP32/frozen_yolo_v3.xml -l ../lib/libcpu_extension.so -d CPU
+```
+### Movie File Mode
+```bash
+$ cd cpp
+$ ./object_detection_demo_yolov3_async -i <path_to_video>/inputVideo.mp4 -m <path_to_model>/yolo_v3.xml -d GPU
 ```
 **NOTE**: Public models should be first converted to the Inference Engine format (`*.xml` + `*.bin`) using the Model Optimizer tool.
 
