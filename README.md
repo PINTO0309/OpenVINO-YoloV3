@@ -108,3 +108,4 @@ with tf.Session() as sess:
 $ bazel-bin/tensorflow/tensorboard/tensorboard --logdir=path/to/logs
 ```
 ### 4. Display of Tensorboard
+Access `http://localhost:6006` from the browser.
