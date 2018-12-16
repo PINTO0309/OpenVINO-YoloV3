@@ -426,8 +426,8 @@ int main(int argc, char *argv[]) {
                         cv::putText(frame,
                                 (label < labels.size() ? labels[label] : std::string("label #") + std::to_string(label))
                                     + conf.str(),
-                                    cv::Point2f(object.xmin, object.ymin - 5), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 0, 255));
-                        cv::rectangle(frame, cv::Point2f(object.xmin, object.ymin), cv::Point2f(object.xmax, object.ymax), cv::Scalar(0, 0, 255));
+                                    cv::Point2f(object.xmin, object.ymin - 5), cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 255), 1, cv::LINE_AA);
+                        cv::rectangle(frame, cv::Point2f(object.xmin, object.ymin), cv::Point2f(object.xmax, object.ymax), cv::Scalar(0, 0, 255), 1, cv::LINE_AA);
                     }
                 }
             }
