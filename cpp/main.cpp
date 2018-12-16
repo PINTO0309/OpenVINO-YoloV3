@@ -195,7 +195,13 @@ int main(int argc, char *argv[]) {
 
         slog::info << "Reading input" << slog::endl;
         cv::VideoCapture cap;
-        if (!((FLAGS_i == "cam") ? cap.open(0) : cap.open(FLAGS_i.c_str()))) {
+        if (FLAGS_i == "cam0") {
+            cap.open(0);
+        } else if (FLAGS_i == "cam1") {
+            cap.open(1);
+        } else if (FLAGS_i == "cam2") {
+            cap.open(2);
+        } else if (!(cap.open(FLAGS_i.c_str()))) {
             throw std::logic_error("Cannot open input file or camera: " + FLAGS_i);
         }
 
