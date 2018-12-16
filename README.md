@@ -1,6 +1,7 @@
 # OpenVINO-YoloV3
-Under construction on December 15, 2018
-
+Under construction on December 15, 2018  
+**Python demo program is under construction and it will not work.**  
+  
 Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
   
 **<Intel Core i7-8750H, CPU Only, 4 FPS - 5 FPS>**  
