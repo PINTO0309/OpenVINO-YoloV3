@@ -119,7 +119,8 @@ sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_
 --output detector/yolo-v3-tiny/detections \
 --data_type FP32 \
 --batch 1 \
---tensorflow_operation_patterns Exp
+--offload_unsupported_operations_to_tf
+
 
 sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
 --input_model pbmodels/frozen_tiny_yolo_v3.pb \

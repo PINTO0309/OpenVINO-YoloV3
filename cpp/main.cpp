@@ -374,18 +374,17 @@ int main(int argc, char *argv[]) {
                 std::ostringstream out;
                 out << "OpenCV cap/render time: " << std::fixed << std::setprecision(2)
                     << (ocv_decode_time + ocv_render_time) << " ms";
-                cv::putText(frame, out.str(), cv::Point2f(0, 25), cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(0, 255, 0));
+                cv::putText(frame, out.str(), cv::Point2f(0, 25), cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(0, 255, 0), 1, cv::LINE_AA);
                 out.str("");
                 out << "Wallclock time " << (isAsyncMode ? "(TRUE ASYNC):      " : "(SYNC, press Tab): ");
                 out << std::fixed << std::setprecision(2) << wall.count() << " ms (" << 1000.f / wall.count() << " fps)";
-                cv::putText(frame, out.str(), cv::Point2f(0, 50), cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(0, 0, 255));
+                cv::putText(frame, out.str(), cv::Point2f(0, 50), cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(0, 0, 255), 1, cv::LINE_AA);
                 if (!isAsyncMode) {  // In the true async mode, there is no way to measure detection time directly
                     out.str("");
                     out << "Detection time  : " << std::fixed << std::setprecision(2) << detection.count()
                         << " ms ("
                         << 1000.f / detection.count() << " fps)";
-                    cv::putText(frame, out.str(), cv::Point2f(0, 75), cv::FONT_HERSHEY_TRIPLEX, 0.6,
-                                cv::Scalar(255, 0, 0));
+                    cv::putText(frame, out.str(), cv::Point2f(0, 75), cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(255, 0, 0), 1, cv::LINE_AA);
                 }
 
                 // ---------------------------Processing output blobs--------------------------------------------------
@@ -427,8 +426,7 @@ int main(int argc, char *argv[]) {
                         cv::putText(frame,
                                 (label < labels.size() ? labels[label] : std::string("label #") + std::to_string(label))
                                     + conf.str(),
-                                    cv::Point2f(object.xmin, object.ymin - 5), cv::FONT_HERSHEY_COMPLEX_SMALL, 1,
-                                    cv::Scalar(0, 0, 255));
+                                    cv::Point2f(object.xmin, object.ymin - 5), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 0, 255));
                         cv::rectangle(frame, cv::Point2f(object.xmin, object.ymin), cv::Point2f(object.xmax, object.ymax), cv::Scalar(0, 0, 255));
                     }
                 }
