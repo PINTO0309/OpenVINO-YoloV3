@@ -1,9 +1,7 @@
 # Object Detection YOLO* V3 Demo, Async API Performance Showcase
 
 This demo showcases Object Detection with YOLO* V3 and Async API.
-
-To learn more about Async API features, please refer to [Object Detection for SSD Demo, Async API Performance Showcase](./samples/object_detection_demo_ssd_async/README.md).
-
+  
 Other demo objectives are:
 * Video as input support via OpenCV*
 * Visualization of the resulting bounding boxes and text labels (from the `.labels` file) or class number (if no file is provided)
@@ -49,7 +47,7 @@ You can use the following command to do inference on GPU with a pre-trained obje
 ```sh
 ./object_detection_demo_yolov3_async -i <path_to_video>/inputVideo.mp4 -m <path_to_model>/yolo_v3.xml -d GPU
 ```
-**NOTE**: Public models should be first converted to the Inference Engine format (`*.xml` + `*.bin`) using the [Model Optimizer](./docs/Model_Optimizer_Developer_Guide/Deep_Learning_Model_Optimizer_DevGuide.md) tool.
+**NOTE**: Public models should be first converted to the Inference Engine format (`*.xml` + `*.bin`) using the Model Optimizer tool.
 
 The only GUI knob is to use **Tab** to switch between the synchronized execution and the true Async mode.
 
@@ -60,6 +58,3 @@ In the default mode, the demo reports:
 * **OpenCV time**: frame decoding + time to render the bounding boxes, labels, and to display the results.
 * **Detection time**: inference time for the object detection network. It is reported in the Sync mode only.
 * **Wallclock time**, which is combined application-level performance.
-
-## See Also
-* [Using Inference Engine Samples](./docs/Inference_Engine_Developer_Guide/Samples_Overview.md)
