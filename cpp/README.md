@@ -60,6 +60,3 @@ In the default mode, the demo reports:
 * **OpenCV time**: frame decoding + time to render the bounding boxes, labels, and to display the results.
 * **Detection time**: inference time for the object detection network. It is reported in the Sync mode only.
 * **Wallclock time**, which is combined application-level performance.
-
-## See Also
-* [Using Inference Engine Samples](./docs/Inference_Engine_Developer_Guide/Samples_Overview.md)
