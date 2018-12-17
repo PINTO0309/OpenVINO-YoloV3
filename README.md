@@ -124,3 +124,6 @@ $ bazel-bin/tensorflow/tensorboard/tensorboard --logdir=path/to/logs
 ```
 ### 4. Display of Tensorboard
 Access `http://localhost:6006` from the browser.
+  
+# Neural Compute Stick 2
+**https://ncsforum.movidius.com/discussion/1302/intel-neural-compute-stick-2-information**
