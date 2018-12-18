@@ -10,3 +10,4 @@ frozen_tiny_yolo_v3.xml
 *.tar.gz
 *.pbtxt
 openvino_yolov3_test2.py
+*.ubuntu

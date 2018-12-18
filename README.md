@@ -48,6 +48,7 @@ $ bazel build tensorflow/tools/graph_transforms:summarize_graph
 $ bazel-bin/tensorflow/tools/graph_transforms/summarize_graph --in_graph=xxxx.pb
 ```
 ### 2. Sample of display result
+YoloV3
 ```bash
 Found 1 possible inputs: (name=inputs, type=float(1), shape=[?,416,416,3]) 
 No variables spotted.
@@ -65,6 +66,7 @@ bazel run tensorflow/tools/benchmark:benchmark_model -- \
 --input_layer_shape=-1,416,416,3 \
 --output_layer=output_boxes
 ```
+tiny-YoloV3
 ```bash
 Found 1 possible inputs: (name=inputs, type=float(1), shape=[?,416,416,3]) 
 No variables spotted.
@@ -124,3 +126,6 @@ $ bazel-bin/tensorflow/tensorboard/tensorboard --logdir=path/to/logs
 ```
 ### 4. Display of Tensorboard
 Access `http://localhost:6006` from the browser.
+  
+# Neural Compute Stick 2
+**https://ncsforum.movidius.com/discussion/1302/intel-neural-compute-stick-2-information**
