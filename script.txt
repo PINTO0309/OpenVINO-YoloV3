@@ -74,27 +74,7 @@ bazel run tensorflow/tools/benchmark:benchmark_model -- \
 sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
 --input_model pbmodels/frozen_yolo_v3.pb \
 --output_dir lrmodels/YoloV3/FP32 \
---input inputs \
---output detector/yolo-v3/detections \
 --data_type FP32 \
---batch 1 \
---tensorflow_use_custom_operations_config yolo_v3_changed.json
-
-sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
---input_model pbmodels/frozen_yolo_v3.pb \
---output_dir lrmodels/YoloV3/FP32 \
---data_type FP32 \
---batch 1 \
---tensorflow_use_custom_operations_config yolo_v3_changed.json
-
-
-
-sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
---input_model pbmodels/frozen_yolo_v3.pb \
---output_dir lrmodels/YoloV3/FP16 \
---input inputs \
---output detector/yolo-v3/detections \
---data_type FP16 \
 --batch 1 \
 --tensorflow_use_custom_operations_config yolo_v3_changed.json
 
@@ -104,32 +84,23 @@ sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_
 --data_type FP16 \
 --batch 1 \
 --tensorflow_use_custom_operations_config yolo_v3_changed.json
-
-
-
-
-
 
 
 
 sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
 --input_model pbmodels/frozen_tiny_yolo_v3.pb \
 --output_dir lrmodels/tiny-YoloV3/FP32 \
---input inputs \
---output detector/yolo-v3-tiny/detections \
 --data_type FP32 \
 --batch 1 \
---offload_unsupported_operations_to_tf
+--tensorflow_use_custom_operations_config yolo_v3_tiny_changed.json
 
 
 sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_tf.py \
 --input_model pbmodels/frozen_tiny_yolo_v3.pb \
 --output_dir lrmodels/tiny-YoloV3/FP16 \
---input inputs \
---output detector/yolo-v3-tiny/detections \
 --data_type FP16 \
 --batch 1 \
---tensorflow_operation_patterns Exp
+--tensorflow_use_custom_operations_config yolo_v3_tiny_changed.json
 
 
 
