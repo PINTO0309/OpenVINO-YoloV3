@@ -12,7 +12,7 @@
       "truth_thresh":1,
       "random":1,
       "anchors":[10,13,16,30,33,23,30,61,62,45,59,119,116,90,156,198,373,326],
-      "entry_points": ["detector/yolo-v3-tiny/Reshape", "detector/yolo-v3-tiny/Reshape_4", "detector/yolo-v3/Reshape_8"]
+      "entry_points": ["detector/yolo-v3/Reshape", "detector/yolo-v3/Reshape_4", "detector/yolo-v3/Reshape_8"]
     }
   }
 ]
