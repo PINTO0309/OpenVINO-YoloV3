@@ -1,18 +1,6 @@
-/*
-// Copyright (c) 2018 Intel Corporation
+// Copyright (C) 2018 Intel Corporation
+// SPDX-License-Identifier: Apache-2.0
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-*/
 
 /**
 * \brief The entry point for the Inference Engine object_detection demo application
@@ -33,14 +21,12 @@
 
 #include <inference_engine.hpp>
 
-#include <samples/common.hpp>
+#include <samples/ocv_common.hpp>
 #include <samples/slog.hpp>
 
 #include "object_detection_demo_yolov3_async.hpp"
 
 #include <ext_list.hpp>
-
-#include <opencv2/opencv.hpp>
 
 using namespace InferenceEngine;
 
@@ -134,7 +120,8 @@ void ParseYOLOV3Output(const CNNLayerPtr &layer, const Blob::Ptr &blob, const un
     try { num = layer->GetParamAsInts("mask").size(); } catch (...) {}
     auto coords = layer->GetParamAsInt("coords");
     auto classes = layer->GetParamAsInt("classes");
-    std::vector<float> anchors = {10.0, 13.0, 16.0, 30.0, 33.0, 23.0, 30.0, 61.0, 62.0, 45.0, 59.0, 119.0, 116.0, 90.0, 156.0, 198.0, 373.0, 326.0};
+    std::vector<float> anchors = {10.0, 13.0, 16.0, 30.0, 33.0, 23.0, 30.0, 61.0, 62.0, 45.0, 59.0, 119.0, 116.0, 90.0,
+                                  156.0, 198.0, 373.0, 326.0};
     try { anchors = layer->GetParamAsFloats("anchors"); } catch (...) {}
     auto side = out_blob_h;
     int anchor_offset = 0;
@@ -425,7 +412,7 @@ int main(int argc, char *argv[]) {
                         cv::putText(frame,
                                 (label < labels.size() ? labels[label] : std::string("label #") + std::to_string(label))
                                     + conf.str(),
-                                    cv::Point2f(object.xmin, object.ymin - 5), cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 255), 1, cv::LINE_AA);
+                                    cv::Point2f(object.xmin, object.ymin - 5), cv::FONT_HERSHEY_COMPLEX_SMALL, 1, cv::Scalar(0, 0, 255), 1, cv::LINE_AA);
                         cv::rectangle(frame, cv::Point2f(object.xmin, object.ymin), cv::Point2f(object.xmax, object.ymax), cv::Scalar(0, 0, 255), 1, cv::LINE_AA);
                     }
                 }
