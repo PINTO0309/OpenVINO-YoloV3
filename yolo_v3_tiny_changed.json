@@ -1,13 +1,18 @@
 [
-   {
-      "id": "TFYOLOV3",
-      "match_kind": "general",
-      "custom_attributes": {
+  {
+    "id": "TFYOLOV3",
+    "match_kind": "general",
+    "custom_attributes": {
       "classes": 80,
       "coords": 4,
-      "num": 9,
-      "mask": [0, 1, 2],
+      "num": 6,
+      "mask": [0,1,2],
+      "jitter":0.3,
+      "ignore_thresh":0.7,
+      "truth_thresh":1,
+      "random":1,
+      "anchors":[10,14,23,27,37,58,81,82,135,169,344,319],
       "entry_points": ["detector/yolo-v3-tiny/Reshape","detector/yolo-v3-tiny/Reshape_4"]
-      }
-   }
+    }
+  }
 ]
