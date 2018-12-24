@@ -7,8 +7,12 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 **【Notice】December 19, 2018 OpenVINO has supported RaspberryPi + NCS2 !!  
 https://software.intel.com/en-us/articles/OpenVINO-RelNotes#inpage-nav-2-2**  
   
-**<Intel Core i7-8750H, CPU Only, 4 FPS - 5 FPS>**  
+**<YoloV3 - Intel Core i7-8750H, CPU Only, 4 FPS - 5 FPS>**  
 [<img src="media/01.gif" width=80%>](https://youtu.be/vOcj_3ByK68)  
+  
+**<tiny-YoloV3 - Intel Core i7-8750H, CPU Only, 60 FPS>**  
+[<img src="media/02.gif" width=80%>](https://youtu.be/md4udC4baZA)  
+
 ## CPP Version YoloV3 (Full size YoloV3 / Dec 16, 2018 Operation confirmed)
 **[cpp version is here](cpp)** "cpp/object_detection_demo_yolov3_async"
   
