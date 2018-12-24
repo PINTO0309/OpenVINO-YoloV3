@@ -120,23 +120,52 @@ void ParseYOLOV3Output(const CNNLayerPtr &layer, const Blob::Ptr &blob, const un
     try { num = layer->GetParamAsInts("mask").size(); } catch (...) {}
     auto coords = layer->GetParamAsInt("coords");
     auto classes = layer->GetParamAsInt("classes");
-    std::vector<float> anchors = {10.0, 13.0, 16.0, 30.0, 33.0, 23.0, 30.0, 61.0, 62.0, 45.0, 59.0, 119.0, 116.0, 90.0,
-                                  156.0, 198.0, 373.0, 326.0};
+    std::vector<float> anchors = {10.0, 13.0, 16.0, 30.0, 33.0, 23.0, 30.0, 61.0, 62.0, 45.0, 59.0, 119.0, 116.0, 90.0, 156.0, 198.0, 373.0, 326.0};
     try { anchors = layer->GetParamAsFloats("anchors"); } catch (...) {}
     auto side = out_blob_h;
     int anchor_offset = 0;
-    switch (side) {
-        case yolo_scale_13:
-            anchor_offset = 2 * 6;
-            break;
-        case yolo_scale_26:
-            anchor_offset = 2 * 3;
-            break;
-        case yolo_scale_52:
-            anchor_offset = 2 * 0;
-            break;
-        default:
-            throw std::runtime_error("Invalid output size");
+
+    //throw std::runtime_error("anchors.size() ==" + std::to_string(anchors.size()));
+
+    if (anchors.size() == 18) {        // YoloV3
+        switch (side) {
+            case yolo_scale_13:
+                anchor_offset = 2 * 6;
+                break;
+            case yolo_scale_26:
+                anchor_offset = 2 * 3;
+                break;
+            case yolo_scale_52:
+                anchor_offset = 2 * 0;
+                break;
+            default:
+                throw std::runtime_error("Invalid output size");
+        }
+    } else if (anchors.size() == 12) { // tiny-YoloV3
+        switch (side) {
+            case yolo_scale_13:
+                anchor_offset = 2 * 3;
+                break;
+            case yolo_scale_26:
+                anchor_offset = 2 * 0;
+                break;
+            default:
+                throw std::runtime_error("Invalid output size");
+        }
+    } else {                           // ???
+        switch (side) {
+            case yolo_scale_13:
+                anchor_offset = 2 * 6;
+                break;
+            case yolo_scale_26:
+                anchor_offset = 2 * 3;
+                break;
+            case yolo_scale_52:
+                anchor_offset = 2 * 0;
+                break;
+            default:
+                throw std::runtime_error("Invalid output size");
+        }
     }
     auto side_square = side * side;
     const float *output_blob = blob->buffer().as<PrecisionTrait<Precision::FP32>::value_type *>();
@@ -276,9 +305,9 @@ int main(int argc, char *argv[]) {
         // --------------------------------- Preparing output blobs -------------------------------------------
         slog::info << "Checking that the outputs are as the demo expects" << slog::endl;
         OutputsDataMap outputInfo(netReader.getNetwork().getOutputsInfo());
-        if (outputInfo.size() != 3) {
-            throw std::logic_error("This demo only accepts networks with three layers");
-        }
+        //if (outputInfo.size() != 3) {
+        //    throw std::logic_error("This demo only accepts networks with three layers");
+        //}
         for (auto &output : outputInfo) {
             output.second->setPrecision(Precision::FP32);
             output.second->setLayout(Layout::NCHW);
@@ -381,6 +410,7 @@ int main(int argc, char *argv[]) {
                 // Parsing outputs
                 for (auto &output : outputInfo) {
                     auto output_name = output.first;
+                    //slog::info << "output_name = " + output_name << slog::endl;
                     CNNLayerPtr layer = netReader.getNetwork().getLayerByName(output_name.c_str());
                     Blob::Ptr blob = async_infer_request_curr->GetBlob(output_name);
                     ParseYOLOV3Output(layer, blob, resized_im_h, resized_im_w, height, width, FLAGS_t, objects);
@@ -390,9 +420,14 @@ int main(int argc, char *argv[]) {
                 for (int i = 0; i < objects.size(); ++i) {
                     if (objects[i].confidence == 0)
                         continue;
-                    for (int j = i + 1; j < objects.size(); ++j)
-                        if (IntersectionOverUnion(objects[i], objects[j]) >= FLAGS_iou_t)
+                    for (int j = i + 1; j < objects.size(); ++j) {
+                        if (IntersectionOverUnion(objects[i], objects[j]) >= FLAGS_iou_t) {
                             objects[j].confidence = 0;
+                        }
+                        //if (objects[j].confidence == 1) {
+                        //    objects[j].confidence = 0;
+                        //}
+                    }
                 }
                 // Drawing boxes
                 for (auto &object : objects) {
@@ -405,6 +440,7 @@ int main(int argc, char *argv[]) {
                                   "    (" << object.xmin << "," << object.ymin << ")-(" << object.xmax << "," << object.ymax << ")"
                                   << ((confidence > FLAGS_t) ? " WILL BE RENDERED!" : "") << std::endl;
                     }
+                    //slog::info << "confidence = " + std::to_string(confidence) << slog::endl;
                     if (confidence > FLAGS_t) {
                         /** Drawing only objects when >confidence_threshold probability **/
                         std::ostringstream conf;

@@ -4,9 +4,11 @@ _*
 frozen_yolo_v3.bin
 frozen_yolo_v3.mapping
 frozen_yolo_v3.xml
+frozen_yolo_v3.labels
 frozen_tiny_yolo_v3.bin
 frozen_tiny_yolo_v3.mapping
 frozen_tiny_yolo_v3.xml
+frozen_tiny_yolo_v3.labels
 *.tar.gz
 *.pbtxt
 openvino_yolov3_test2.py

@@ -1,0 +1,5 @@
+[ INFO ] output_name = detector/yolo-v3-tiny/Conv_12/BiasAdd/YoloRegion
+[ INFO ] output_name = detector/yolo-v3-tiny/Conv_9/BiasAdd/YoloRegion
+
+gfuse ...disable
+fuse ...disable

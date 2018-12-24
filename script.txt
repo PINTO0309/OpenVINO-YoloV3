@@ -14,13 +14,13 @@ python3 convert_weights_pb.py \
 #============================================
 python3 convert_weights.py \
 --class_names coco.names \
---weights_file weights/yolov3.weights \
+--weights_file weights/yolov3-tiny.weights \
 --data_format NHWC \
 --tiny
 
 python3 convert_weights_pb.py \
 --class_names coco.names \
---weights_file weights/yolov3.weights \
+--weights_file weights/yolov3-tiny.weights \
 --data_format NHWC \
 --tiny \
 --output_graph pbmodels/frozen_tiny_yolo_v3.pb
@@ -101,6 +101,19 @@ sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_
 --data_type FP16 \
 --batch 1 \
 --tensorflow_use_custom_operations_config yolo_v3_tiny_changed.json
+
+
+./object_detection_demo_yolov3_async \
+-i cam1 \
+-m ../lrmodels/tiny-YoloV3/FP16/frozen_tiny_yolo_v3.xml \
+-d MYRIAD \
+-iou_t 0.6 \
+-t 0.6
+
+
+
+
+
 
 
 
