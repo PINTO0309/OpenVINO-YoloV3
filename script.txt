@@ -106,15 +106,23 @@ sudo python3 /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/mo_
 
 
 
-./object_detection_demo_yolov3_async \
+cpp/object_detection_demo_yolov3_async \
 -i cam1 \
--m ../lrmodels/tiny-YoloV3/FP16/frozen_tiny_yolo_v3.xml \
+-m lrmodels/tiny-YoloV3/FP16/frozen_tiny_yolo_v3.xml \
 -d MYRIAD \
--t 0.35
+-t 0.2
+
+cpp/object_detection_demo_yolov3_async \
+-i data/input/testvideo2.mp4 \
+-m lrmodels/tiny-YoloV3/FP16/frozen_tiny_yolo_v3.xml \
+-d MYRIAD \
+-t 0.2
 
 
-
-
-
+cpp/object_detection_demo_yolov3_async \
+-i data/input/testvideo2.mp4 \
+-m lrmodels/tiny-YoloV3/FP32/frozen_tiny_yolo_v3.xml \
+-d CPU \
+-t 0.2
 
 
