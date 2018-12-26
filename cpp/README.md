@@ -49,6 +49,21 @@ You can use the following command to do inference on GPU with a pre-trained obje
 $ cd cpp
 $ ./object_detection_demo_yolov3_async -i cam0 -m ../lrmodels/YoloV3/FP32/frozen_yolo_v3.xml -l ../lib/libcpu_extension.so -d CPU
 ```
+### MYRIAD + USB Camera Mode + Full size YoloV3 (Selectable cam0/cam1/cam2)
+```bash
+$ cd cpp
+$ ./object_detection_demo_yolov3_async -i cam0 -m ../lrmodels/tiny-YoloV3/FP16/frozen_tiny_yolo_v3.xml -d MYRIAD
+```
+### CPU + USB Camera Mode + tiny-YoloV3 (Selectable cam0/cam1/cam2)
+```bash
+$ cd cpp
+$ ./object_detection_demo_yolov3_async -i cam0 -m ../lrmodels/tiny-YoloV3/FP16/frozen_yolo_v3.xml -l ../lib/libcpu_extension.so -d CPU
+```
+### MYRIAD + USB Camera Mode + tiny-YoloV3 (Selectable cam0/cam1/cam2)
+```bash
+$ cd cpp
+$ ./object_detection_demo_yolov3_async -i cam0 -m ../lrmodels/tiny-YoloV3/FP16/frozen_tiny_yolo_v3.xml -d MYRIAD
+```
 ### Movie File Mode
 ```bash
 $ cd cpp
