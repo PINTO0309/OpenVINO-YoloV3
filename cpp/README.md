@@ -57,7 +57,7 @@ $ ./object_detection_demo_yolov3_async -i cam0 -m ../lrmodels/tiny-YoloV3/FP16/f
 ### CPU + USB Camera Mode + tiny-YoloV3 (Selectable cam0/cam1/cam2)
 ```bash
 $ cd cpp
-$ ./object_detection_demo_yolov3_async -i cam0 -m ../lrmodels/tiny-YoloV3/FP16/frozen_yolo_v3.xml -l ../lib/libcpu_extension.so -d CPU -t 0.2
+$ ./object_detection_demo_yolov3_async -i cam0 -m ../lrmodels/tiny-YoloV3/FP16/frozen_yolo_v3.xml -l ../lib/libcpu_extension.so -d CPU
 ```
 ### MYRIAD + USB Camera Mode + tiny-YoloV3 (Selectable cam0/cam1/cam2)
 ```bash
