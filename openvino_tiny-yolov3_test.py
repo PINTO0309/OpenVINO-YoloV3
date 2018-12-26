@@ -43,8 +43,6 @@ def build_argparser():
     parser = ArgumentParser()
     parser.add_argument("-d", "--device", help="Specify the target device to infer on; CPU, GPU, FPGA or MYRIAD is acceptable. \
                                                 Sample will look for a suitable plugin for device specified (CPU by default)", default="CPU", type=str)
-    parser.add_argument("-nt", "--number_top", help="Number of top results", default=10, type=int)
-
     return parser
 
 
@@ -92,7 +90,7 @@ def main_IE_infer():
     while cap.isOpened():
         t1 = time.time()
 
-        # Uncomment only when playing video files
+        ## Uncomment only when playing video files
         #cap.set(cv2.CAP_PROP_POS_FRAMES, framepos)
 
         ret, image = cap.read()
@@ -104,8 +102,6 @@ def main_IE_infer():
         prepimg = image[np.newaxis, :, :, :]
         prepimg = prepimg.transpose((0, 3, 1, 2))  #NHWC to NCHW
         outputs = exec_net.infer(inputs={input_blob: prepimg})
-
-        print(outputs)
 
         sys.exit(0)
         break
@@ -126,9 +122,9 @@ def main_IE_infer():
         elapsedTime = time.time() - t1
         fps = "(Playback) {:.1f} FPS".format(1/elapsedTime)
 
-        # frame skip, video file only
-        skip_frame = int((vidfps - int(1/elapsedTime)) / int(1/elapsedTime))
-        framepos += skip_frame
+        ## frame skip, video file only
+        #skip_frame = int((vidfps - int(1/elapsedTime)) / int(1/elapsedTime))
+        #framepos += skip_frame
 
     cv2.destroyAllWindows()
     del net
