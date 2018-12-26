@@ -235,7 +235,7 @@ int main(int argc, char *argv[]) {
 
         // --------------------------- 1. Load Plugin for inference engine -------------------------------------
         slog::info << "Loading plugin" << slog::endl;
-        InferencePlugin plugin = PluginDispatcher({"../../../lib/intel64", ""}).getPluginByDevice(FLAGS_d);
+        InferencePlugin plugin = PluginDispatcher({"../lib", ""}).getPluginByDevice(FLAGS_d);
         printPluginVersion(plugin, std::cout);
 
         /**Loading extensions to the plugin **/
