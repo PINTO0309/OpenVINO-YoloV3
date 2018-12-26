@@ -13,7 +13,7 @@ https://software.intel.com/en-us/articles/OpenVINO-RelNotes#inpage-nav-2-2**
 **<tiny-YoloV3 - Intel Core i7-8750H, CPU Only, 60 FPS>**  
 [<img src="media/02.gif" width=80%>](https://youtu.be/md4udC4baZA)  
 
-## CPP Version YoloV3 (Full size YoloV3 / Dec 16, 2018 Operation confirmed)
+## CPP Version YoloV3 / tiny-YoloV3 (Dec 16, 2018 Operation confirmed)
 **[cpp version is here](cpp)** "cpp/object_detection_demo_yolov3_async"
   
 ## Environment
