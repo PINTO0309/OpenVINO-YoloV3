@@ -16,6 +16,18 @@ You can copy and paste this code without pulling Inference Engine samples helper
 On the start-up, the application reads command-line parameters and loads a network to the Inference
 Engine. Upon getting a frame from the OpenCV VideoCapture, it performs inference and displays the results.
 
+## Recompile
+In order to correspond to your machine's architecture, you need to recompile the binary by executing the following command.
+```bash
+$ cd ~/OpenVINO-YoloV3/cpp
+$ sudo cp main.cpp /opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/object_detection_demo_yolov3_async
+$ sudo cp object_detection_demo_yolov3_async.hpp /opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/object_detection_demo_yolov3_async
+$ cd /opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples
+$ sudo ./build_samples.sh
+$ cd ~/OpenVINO-YoloV3/cpp
+$ cp $HOME/inference_engine_samples_build/intel64/Release/object_detection_demo_yolov3_async/object_detection_demo_yolov3_async .
+```
+
 ## Running
 
 Running the application with the <code>-h</code> option yields the following usage message:
