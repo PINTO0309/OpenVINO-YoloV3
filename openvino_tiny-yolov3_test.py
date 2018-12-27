@@ -1,13 +1,15 @@
 import sys
 import os
 from argparse import ArgumentParser
-import numpy as np
+import numpy as np, math
 import cv2
 import time
 from PIL import Image
 import tensorflow as tf
 from tensorflow.python.platform import gfile
 from openvino.inference_engine import IENetwork, IEPlugin
+
+m_input_size = 416
 
 yolo_scale_13 = 13
 yolo_scale_26 = 26
@@ -45,11 +47,65 @@ def build_argparser():
                                                 Sample will look for a suitable plugin for device specified (CPU by default)", default="CPU", type=str)
     return parser
 
+#def ParseYOLOV3Output(blob, resized_im_h, resized_im_w, original_im_h, original_im_w, threshold, objects):
+#    ## --------------------------- Validating output parameters -------------------------------------
+#    #const int out_blob_h = static_cast<int>(blob->getTensorDesc().getDims()[2]);
+#    #const int out_blob_w = static_cast<int>(blob->getTensorDesc().getDims()[3]);
+#    ## --------------------------- Extracting layer parameters -------------------------------------
+#    side = out_blob_h
+#    anchor_offset = 0
+#
+#    if anchors.size() == 18      ## YoloV3
+#        if side == yolo_scale_13:
+#            anchor_offset = 2 * 6
+#        else if side == yolo_scale_26:
+#            anchor_offset = 2 * 3
+#        else if side == yolo_scale_52:
+#            anchor_offset = 2 * 0
+#
+#    else if anchors.size() == 12 ## tiny-YoloV3
+#        if side == yolo_scale_13:
+#            anchor_offset = 2 * 3
+#        else if side == yolo_scale_26:
+#            anchor_offset = 2 * 0
+#
+#    else                         ## ???
+#        if side == yolo_scale_13:
+#            anchor_offset = 2 * 6
+#        else if side == yolo_scale_26:
+#            anchor_offset = 2 * 3
+#        else if side == yolo_scale_52:
+#            anchor_offset = 2 * 0
+#
+#    side_square = side * side
+#    const float *output_blob = blob->buffer().as<PrecisionTrait<Precision::FP32>::value_type *>();
+#
+#    ## --------------------------- Parsing YOLO Region output -------------------------------------
+#    for i in range(side_square):
+#        row = int(i / side)
+#        col = int(i % side)
+#        for n in range(num):
+#            obj_index = EntryIndex(side, coords, classes, n * side * side + i, coords)
+#            box_index = EntryIndex(side, coords, classes, n * side * side + i, 0)
+#            scale = output_blob[obj_index]
+#            if (scale < threshold):
+#                continue
+#            x = (col + output_blob[box_index + 0 * side_square]) / side * resized_im_w
+#            y = (row + output_blob[box_index + 1 * side_square]) / side * resized_im_h
+#            height = math.exp(output_blob[box_index + 3 * side_square]) * anchors[anchor_offset + 2 * n + 1]
+#            width = math.exp(output_blob[box_index + 2 * side_square]) * anchors[anchor_offset + 2 * n]
+#            for j in range(classes):
+#                class_index = EntryIndex(side, coords, classes, n * side_square + i, coords + 1 + j)
+#                prob = scale * output_blob[class_index]
+#                if prob < threshold:
+#                    continue
+#                DetectionObject obj(x, y, height, width, j, prob, (original_im_h / resized_im_h), (original_im_w / resized_im_w))
+#                objects.push_back(obj)
+
 
 def main_IE_infer():
     camera_width = 320
     camera_height = 240
-    m_input_size=416
     fps = ""
     framepos = 0
     frame_count = 0
@@ -77,15 +133,13 @@ def main_IE_infer():
 
     time.sleep(1)
 
-    plugin = IEPlugin(device=args.device, plugin_dirs=args.plugin_dir)
+    plugin = IEPlugin(device=args.device)
     if "CPU" in args.device:
         plugin.add_cpu_extension("lib/libcpu_extension.so")
     # Read IR
     net = IENetwork(model=model_xml, weights=model_bin)
     input_blob = next(iter(net.inputs))
     exec_net = plugin.load(network=net)
-
-    #sys.exit(0)
 
     while cap.isOpened():
         t1 = time.time()
@@ -103,8 +157,21 @@ def main_IE_infer():
         prepimg = prepimg.transpose((0, 3, 1, 2))  #NHWC to NCHW
         outputs = exec_net.infer(inputs={input_blob: prepimg})
 
+        #output_name = detector/yolo-v3-tiny/Conv_12/BiasAdd/YoloRegion
+        #output_name = detector/yolo-v3-tiny/Conv_9/BiasAdd/YoloRegion
+        print(type(outputs))
+        print(outputs["detector/yolo-v3-tiny/Conv_12/BiasAdd/YoloRegion"])
+        print(outputs["detector/yolo-v3-tiny/Conv_9/BiasAdd/YoloRegion"])
+
         sys.exit(0)
         break
+
+        objects = []
+        # Parsing outputs
+        for output in outputs.values():
+            ParseYOLOV3Output(output, m_input_size, m_input_size, camera_height, camera_width, 0.2, objects)
+        
+
 
         outputimg = Image.fromarray(np.uint8(result), mode="P")
         outputimg.putpalette(palette)
