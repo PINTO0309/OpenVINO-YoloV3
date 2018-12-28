@@ -1,8 +1,19 @@
 # OpenVINO-YoloV3
-YoloV3 / tiny-YoloV3 + RaspberryPi3/Ubuntu LaptopPC + NCS/NCS2 + USB Camera + Python
+YoloV3 / tiny-YoloV3 + RaspberryPi3 / Ubuntu LaptopPC + NCS/NCS2 + USB Camera + Python
   
 Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
   
+**Performance comparison as a mobile application (Based on sensory comparison)**  
+◯=HIGH, △=MEDIUM, ×=LOW  
+
+|No.|Model|Speed|Accuracy|
+|:-:|:-|:-:|:-:|
+|1|SSD|×|◯|
+|2|**[MobileNet-SSD](https://github.com/PINTO0309/MobileNet-SSD-RealSense.git)**|△|△|
+|3|**[YoloV3](https://github.com/PINTO0309/OpenVINO-YoloV3.git)**|×|◯|
+|4|**[tiny-YoloV3](https://github.com/PINTO0309/OpenVINO-YoloV3.git)**|◯|×|
+
+
 **<CPP + YoloV3 - Intel Core i7-8750H, CPU Only, 4 FPS - 5 FPS>**  
 [<img src="media/01.gif" width=80%>](https://youtu.be/vOcj_3ByK68)  
   
