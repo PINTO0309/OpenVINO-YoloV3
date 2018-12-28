@@ -3,11 +3,14 @@ YoloV3 / tiny-YoloV3 + RaspberryPi3 + NCS/NCS2 + USB Camera + Python
   
 Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
   
-**<YoloV3 - Intel Core i7-8750H, CPU Only, 4 FPS - 5 FPS>**  
+**<CPP + YoloV3 - Intel Core i7-8750H, CPU Only, 4 FPS - 5 FPS>**  
 [<img src="media/01.gif" width=80%>](https://youtu.be/vOcj_3ByK68)  
   
-**<tiny-YoloV3 - Intel Core i7-8750H, CPU Only, 60 FPS>**  
+**<CPP + tiny-YoloV3 - Intel Core i7-8750H, CPU Only, 60 FPS>**  
 [<img src="media/02.gif" width=80%>](https://youtu.be/md4udC4baZA)  
+
+**<Python + tiny-YoloV3 + USBCamera, CPU Only, 30 FPS>**  
+[<img src="media/03.gif" width=80%>](https://youtu.be/HTDzpFFpBbc)  
 
 ## Python Version YoloV3 / tiny-YoloV3 (Dec 28, 2018 Operation confirmed)
 ### YoloV3
