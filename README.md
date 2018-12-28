@@ -1,5 +1,5 @@
 # OpenVINO-YoloV3
-YoloV3 / tiny-YoloV3 + RaspberryPi3 + NCS/NCS2 + USB Camera + Python
+YoloV3 / tiny-YoloV3 + RaspberryPi3/Ubuntu LaptopPC + NCS/NCS2 + USB Camera + Python
   
 Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
   
