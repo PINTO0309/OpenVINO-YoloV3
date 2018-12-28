@@ -1,51 +1,144 @@
-#
-#https://software.intel.com/en-us/articles/OpenVINO-Using-TensorFlow#inpage-nav-8
-#
-
-import sys
-import os
+import sys, os, cv2, time
+import numpy as np, math
 from argparse import ArgumentParser
-import numpy as np
-import cv2
-import time
-from PIL import Image
-import tensorflow as tf
-from tensorflow.python.platform import gfile
 from openvino.inference_engine import IENetwork, IEPlugin
+
+m_input_size = 416
+
+yolo_scale_13 = 13
+yolo_scale_26 = 26
+yolo_scale_52 = 52
+
+classes = 80
+coords = 4
+num = 3
+anchors = [10,13,16,30,33,23,30,61,62,45,59,119,116,90,156,198,373,326]
+
+LABELS = ("person", "bicycle", "car", "motorbike", "aeroplane",
+          "bus", "train", "truck", "boat", "traffic light",
+          "fire hydrant", "stop sign", "parking meter", "bench", "bird",
+          "cat", "dog", "horse", "sheep", "cow",
+          "elephant", "bear", "zebra", "giraffe", "backpack",
+          "umbrella", "handbag", "tie", "suitcase", "frisbee",
+          "skis", "snowboard", "sports ball", "kite", "baseball bat",
+          "baseball glove", "skateboard", "surfboard","tennis racket", "bottle",
+          "wine glass", "cup", "fork", "knife", "spoon",
+          "bowl", "banana", "apple", "sandwich", "orange",
+          "broccoli", "carrot", "hot dog", "pizza", "donut",
+          "cake", "chair", "sofa", "pottedplant", "bed",
+          "diningtable", "toilet", "tvmonitor", "laptop", "mouse",
+          "remote", "keyboard", "cell phone", "microwave", "oven",
+          "toaster", "sink", "refrigerator", "book", "clock",
+          "vase", "scissors", "teddy bear", "hair drier", "toothbrush")
+
+label_text_color = (255, 255, 255)
+label_background_color = (125, 175, 75)
+box_color = (255, 128, 0)
+box_thickness = 1
 
 def build_argparser():
     parser = ArgumentParser()
-    parser.add_argument("-pp", "--plugin_dir", help="Path to a plugin folder", type=str, default=None)
-    parser.add_argument("-d", "--device", help="Specify the target device to infer on; CPU, GPU, FPGA or MYRIAD is acceptable. Sample will look for a suitable plugin for device specified (CPU by default)", default="CPU", type=str)
-    parser.add_argument("-nt", "--number_top", help="Number of top results", default=10, type=int)
-    parser.add_argument("-pc", "--performance", help="Enables per-layer performance report", action='store_true')
-
+    parser.add_argument("-d", "--device", help="Specify the target device to infer on; CPU, GPU, FPGA or MYRIAD is acceptable. \
+                                                Sample will look for a suitable plugin for device specified (CPU by default)", default="CPU", type=str)
     return parser
 
 
-class _model_postprocess():
-    def __init__(self):
-        graph = tf.Graph()
-        f_handle = gfile.FastGFile("pbmodels/frozen_yolo_v3.pb", "rb")
-        graph_def = tf.GraphDef.FromString(f_handle.read())
-        with graph.as_default():
-            #detections: outputs of YOLOV3 detector of shape (?, 10647, (num_classes + 5))
-            new_input = tf.placeholder(tf.float32, shape=(1, 10647, 85), name="new_input")
-            tf.import_graph_def(graph_def, input_map={"split:0": new_input}, name='')
-        self.sess = tf.Session(graph=graph)
-
-    def _post_process(self, detections):
-        detected_boxes = self.sess.run("output_boxes:0", feed_dict={"new_input:0": detections})
-        return detected_boxes
+def EntryIndex(side, lcoords, lclasses, location, entry):
+    n = int(location / (side * side))
+    loc = location % (side * side)
+    return int(n * side * side * (lcoords + lclasses + 1) + entry * side * side + loc)
 
 
-_post = _model_postprocess()
+class DetectionObject():
+    xmin = 0
+    ymin = 0
+    xmax = 0
+    ymax = 0
+    class_id = 0
+    confidence = 0.0
+
+    def __init__(self, x, y, h, w, class_id, confidence, h_scale, w_scale):
+        self.xmin = int((x - w / 2) * w_scale)
+        self.ymin = int((y - h / 2) * h_scale)
+        self.xmax = int(self.xmin + w * w_scale)
+        self.ymax = int(self.ymin + h * h_scale)
+        self.class_id = class_id
+        self.confidence = confidence
+
+
+def IntersectionOverUnion(box_1, box_2):
+    width_of_overlap_area = min(box_1.xmax, box_2.xmax) - max(box_1.xmin, box_2.xmin)
+    height_of_overlap_area = min(box_1.ymax, box_2.ymax) - max(box_1.ymin, box_2.ymin)
+    area_of_overlap = 0.0
+    if (width_of_overlap_area < 0.0 or height_of_overlap_area < 0.0):
+        area_of_overlap = 0.0
+    else:
+        area_of_overlap = width_of_overlap_area * height_of_overlap_area
+    box_1_area = (box_1.ymax - box_1.ymin)  * (box_1.xmax - box_1.xmin)
+    box_2_area = (box_2.ymax - box_2.ymin)  * (box_2.xmax - box_2.xmin)
+    area_of_union = box_1_area + box_2_area - area_of_overlap
+    return (area_of_overlap / area_of_union)
+
+
+def ParseYOLOV3Output(blob, resized_im_h, resized_im_w, original_im_h, original_im_w, threshold, objects):
+
+    out_blob_h = blob.shape[2]
+    out_blob_w = blob.shape[3]
+
+    side = out_blob_h
+    anchor_offset = 0
+
+    if len(anchors) == 18:   ## YoloV3
+        if side == yolo_scale_13:
+            anchor_offset = 2 * 6
+        elif side == yolo_scale_26:
+            anchor_offset = 2 * 3
+        elif side == yolo_scale_52:
+            anchor_offset = 2 * 0
+
+    elif len(anchors) == 12: ## tiny-YoloV3
+        if side == yolo_scale_13:
+            anchor_offset = 2 * 3
+        elif side == yolo_scale_26:
+            anchor_offset = 2 * 0
+
+    else:                    ## ???
+        if side == yolo_scale_13:
+            anchor_offset = 2 * 6
+        elif side == yolo_scale_26:
+            anchor_offset = 2 * 3
+        elif side == yolo_scale_52:
+            anchor_offset = 2 * 0
+
+    side_square = side * side
+    output_blob = blob.flatten()
+
+    for i in range(side_square):
+        row = int(i / side)
+        col = int(i % side)
+        for n in range(num):
+            obj_index = EntryIndex(side, coords, classes, n * side * side + i, coords)
+            box_index = EntryIndex(side, coords, classes, n * side * side + i, 0)
+            scale = output_blob[obj_index]
+            if (scale < threshold):
+                continue
+            x = (col + output_blob[box_index + 0 * side_square]) / side * resized_im_w
+            y = (row + output_blob[box_index + 1 * side_square]) / side * resized_im_h
+            height = math.exp(output_blob[box_index + 3 * side_square]) * anchors[anchor_offset + 2 * n + 1]
+            width = math.exp(output_blob[box_index + 2 * side_square]) * anchors[anchor_offset + 2 * n]
+            for j in range(classes):
+                class_index = EntryIndex(side, coords, classes, n * side_square + i, coords + 1 + j)
+                prob = scale * output_blob[class_index]
+                if prob < threshold:
+                    continue
+                obj = DetectionObject(x, y, height, width, j, prob, (original_im_h / resized_im_h), (original_im_w / resized_im_w))
+                objects.append(obj)
+    return objects
 
 
 def main_IE_infer():
     camera_width = 320
     camera_height = 240
-    m_input_size=416
     fps = ""
     framepos = 0
     frame_count = 0
@@ -54,8 +147,8 @@ def main_IE_infer():
     elapsedTime = 0
 
     args = build_argparser().parse_args()
-    model_xml = "lrmodels/YoloV3/FP32/frozen_yolo_v3.xml"
-    #model_xml = "lrmodels/tiny-YoloV3/FP32/frozen_tiny_yolo_v3.xml"
+    model_xml = "lrmodels/YoloV3/FP32/frozen_yolo_v3.xml" #<--- CPU
+    #model_xml = "lrmodels/YoloV3/FP16/frozen_yolo_v3.xml" #<--- MYRIAD
     model_bin = os.path.splitext(model_xml)[0] + ".bin"
 
     cap = cv2.VideoCapture(0)
@@ -73,92 +166,64 @@ def main_IE_infer():
 
     time.sleep(1)
 
-    plugin = IEPlugin(device=args.device, plugin_dirs=args.plugin_dir)
+    plugin = IEPlugin(device=args.device)
     if "CPU" in args.device:
         plugin.add_cpu_extension("lib/libcpu_extension.so")
-    if args.performance:
-        plugin.set_config({"PERF_COUNT": "YES"})
-    # Read IR
-    net = IENetwork.from_ir(model=model_xml, weights=model_bin)
+    net = IENetwork(model=model_xml, weights=model_bin)
     input_blob = next(iter(net.inputs))
-    out_blob   = next(iter(net.outputs))
-    print("input_blob =", input_blob)
-    print("out_blob =", out_blob)
     exec_net = plugin.load(network=net)
 
     while cap.isOpened():
         t1 = time.time()
 
-        # Uncomment only when playing video files
+        ## Uncomment only when playing video files
         #cap.set(cv2.CAP_PROP_POS_FRAMES, framepos)
 
         ret, image = cap.read()
         if not ret:
             break
 
-        #ratio = 1.0 * m_input_size / max(image.shape[0], image.shape[1])
-        #shrink_size = (int(ratio * image.shape[1]), int(ratio * image.shape[0]))
-        image = cv2.resize(image, (m_input_size, m_input_size), interpolation=cv2.INTER_CUBIC)
+        prepimg = cv2.resize(image, (m_input_size, m_input_size))
+        prepimg = prepimg[np.newaxis, :, :, :]     # Batch size axis add
+        prepimg = prepimg.transpose((0, 3, 1, 2))  # NHWC to NCHW
+        outputs = exec_net.infer(inputs={input_blob: prepimg})
 
-        #prepimg = _pre._pre_process(image)
-        prepimg = image[np.newaxis, :, :, :]
-        print("image =", image.shape)
-        print("prepimg =", prepimg.shape)
-        prepimg = prepimg.transpose((0, 3, 1, 2))  #NHWC to NCHW
-        #res = exec_net.infer(inputs={input_blob: prepimg})
-        exec_net.start_async(request_id=0, inputs={input_blob: prepimg})
+        objects = []
 
-        if exec_net.requests[0].wait(-1) == 0:
-            outputs = exec_net.requests[0].outputs[out_blob]
+        for output in outputs.values():
+            objects = ParseYOLOV3Output(output, m_input_size, m_input_size, camera_height, camera_width, 0.7, objects)
 
-        #print("len(res) =", len(res))
-        print("outputs.shape =", outputs.shape)
+        # Filtering overlapping boxes
+        objlen = len(objects)
+        for i in range(objlen):
+            if (objects[i].confidence == 0.0):
+                continue
+            for j in range(i + 1, objlen):
+                if (IntersectionOverUnion(objects[i], objects[j]) >= 0.4):
+                    objects[j].confidence = 0
+        
+        # Drawing boxes
+        for obj in objects:
+            if obj.confidence < 0.2:
+                continue
+            label = obj.class_id
+            confidence = obj.confidence
+            if confidence > 0.2:
+                label_text = LABELS[label] + " (" + "{:.1f}".format(confidence * 100) + "%)"
+                cv2.rectangle(image, (obj.xmin, obj.ymin), (obj.xmax, obj.ymax), box_color, box_thickness)
+                cv2.putText(image, label_text, (obj.xmin, obj.ymin - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, label_text_color, 1)
 
-        #result = _post._post_process(res)
-        #print(result)
-
-        #reslist = list(res.keys())
-        #detector/yolo-v3/Conv_6/BiasAdd/YoloRegion
-        #detector/yolo-v3/Conv_14/BiasAdd/YoloRegion
-        #detector/yolo-v3/Conv_22/BiasAdd/YoloRegion
-
-        #print("res =", reslist)
-        #print("res(reslist[0][0]) =", len(res[reslist[0]][0]))
-        #print("res(reslist[1][0]) =", len(res[reslist[1]][0]))
-        #print("res(reslist[2][0]) =", len(res[reslist[2]][0]))
-        #print("res(reslist[0][0][0]) =", len(res[reslist[0]][0][0]))
-        #print("res(reslist[1][0][0]) =", len(res[reslist[1]][0][0]))
-        #print("res(reslist[2][0][0]) =", len(res[reslist[2]][0][0]))
-        #print("res(reslist[0][0][254]) =", len(res[reslist[0]][0][254]))
-        #print("res(reslist[1][0][254]) =", len(res[reslist[1]][0][254]))
-        #print("res(reslist[2][0][254]) =", len(res[reslist[2]][0][254]))
-
-        #out1 = np.concatenate([res[reslist[0][0]], res[reslist[1][0]], res[reslist[2][0]]], axis=-1)
-        #out1 = np.r_[res[reslist[0][0]], res[reslist[1][0]], res[reslist[2][0]]]
-        #out2 = np.split(out1, [1, 1, 1, 1, -1], axis=-1)
-        #out2 = detections_boxes(detections)
-        #print(out2)
-        break
-
-        outputimg = Image.fromarray(np.uint8(result), mode="P")
-        outputimg.putpalette(palette)
-        outputimg = outputimg.convert("RGB")
-        outputimg = np.asarray(outputimg)
-        outputimg = cv2.cvtColor(outputimg, cv2.COLOR_RGB2BGR)
-        outputimg = cv2.addWeighted(image, 1.0, outputimg, 0.9, 0)
-        outputimg = cv2.resize(outputimg, (camera_width, camera_height))
-
-        cv2.putText(outputimg, fps, (camera_width-180,15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (38,0,255), 1, cv2.LINE_AA)
-        cv2.imshow("Result", outputimg)
+        cv2.putText(image, fps, (camera_width - 170, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (38, 0, 255), 1, cv2.LINE_AA)
+        cv2.imshow("Result", image)
 
         if cv2.waitKey(1)&0xFF == ord('q'):
             break
         elapsedTime = time.time() - t1
         fps = "(Playback) {:.1f} FPS".format(1/elapsedTime)
 
-        # frame skip, video file only
-        skip_frame = int((vidfps - int(1/elapsedTime)) / int(1/elapsedTime))
-        framepos += skip_frame
+        ## frame skip, video file only
+        #skip_frame = int((vidfps - int(1/elapsedTime)) / int(1/elapsedTime))
+        #framepos += skip_frame
 
     cv2.destroyAllWindows()
     del net
