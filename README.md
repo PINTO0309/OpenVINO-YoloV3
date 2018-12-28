@@ -10,6 +10,11 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 [<img src="media/02.gif" width=80%>](https://youtu.be/md4udC4baZA)  
 
 ## Python Version YoloV3 / tiny-YoloV3 (Dec 28, 2018 Operation confirmed)
+### YoloV3
+```bash
+$ python3 openvino_yolov3_test.py
+```
+### tiny-YoloV3
 ```bash
 $ python3 openvino_tiny-yolov3_test.py
 ```
