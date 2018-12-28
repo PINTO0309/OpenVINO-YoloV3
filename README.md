@@ -17,7 +17,7 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 ```bash
 $ python3 openvino_yolov3_test.py
 ```
-### tiny-YoloV3
+### tiny-YoloV3 (The accuracy is very bad)
 ```bash
 $ python3 openvino_tiny-yolov3_test.py
 ```
