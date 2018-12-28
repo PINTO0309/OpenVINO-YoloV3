@@ -9,7 +9,7 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 **<CPP + tiny-YoloV3 - Intel Core i7-8750H, CPU Only, 60 FPS>**  
 [<img src="media/02.gif" width=80%>](https://youtu.be/md4udC4baZA)  
 
-**<Python + tiny-YoloV3 + USBCamera, CPU Only, 30 FPS>**  
+**<Python + tiny-YoloV3 + USBCamera, Core i7-8750H, CPU Only, 30 FPS>**  
 [<img src="media/03.gif" width=60%>](https://youtu.be/HTDzpFFpBbc)  
 
 ## Python Version YoloV3 / tiny-YoloV3 (Dec 28, 2018 Operation confirmed)
