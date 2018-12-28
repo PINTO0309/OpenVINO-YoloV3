@@ -40,6 +40,8 @@ $ python3 openvino_tiny-yolov3_test.py
 
 - LattePanda Alpha (Intel 7th Core m3-7y30) or LaptopPC (Intel 8th Core i7-8750H)
 - Ubuntu 16.04 x86_64
+- RaspberryPi3
+- Raspbian Stretch armv7l
 - OpenVINO toolkit 2018 R5 (2018.5.445)
 - Python 3.5
 - OpenCV 4.0.1-openvino
