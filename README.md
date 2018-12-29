@@ -64,7 +64,6 @@ $ python3 openvino_tiny-yolov3_test.py
 ## OpenVINO - Python API
 **https://software.intel.com/en-us/articles/OpenVINO-InferEngine#inpage-nav-11**
   
-<hr />
 <br>
 <br>
 
@@ -102,7 +101,6 @@ Update udev rules so that the toolkit can communicate with your neural compute s
 ```
 **[Note] OpenCV 4.0.1 will be installed without permission when the work is finished.
 If you do not want to affect other environments, please edit environment variables after installation is completed.**
-<hr />
 <br>
 <br>
 
