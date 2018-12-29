@@ -69,8 +69,66 @@ $ python3 openvino_tiny-yolov3_test.py
 
 # Environment construction procedure
 ### 1. Work with LaptopPC (Ubuntu 16.04)
+1.OpenVINO R5 FUll-Install. Execute the following command.
+```bash
+$ cd ~
+$ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1tlDW_kDOchWbkZbfy5WfbsW-b_GpXgr7" > /dev/null
+$ CODE="$(awk '/_warning_/ {print $NF}' /tmp/cookie)"
+$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1tlDW_kDOchWbkZbfy5WfbsW-b_GpXgr7" -o l_openvino_toolkit_ie_p_2018.5.445.tgz
+$ tar -zxf l_openvino_toolkit_ie_p_2018.5.445.tgz
+$ rm l_openvino_toolkit_ie_p_2018.5.445.tgz
+$ cd l_openvino_toolkit_ie_p_2018.5.445
+$ sudo -E ./install_cv_sdk_dependencies.sh
 
-### 2. 【Option】Work with RaspberryPi (Raspbian Stretch)
+## GUI version installer
+$ sudo ./install_GUI.sh
+ or
+## CUI version installer
+$ sudo ./install.sh
+```
+2.Configure the Model Optimizer. Execute the following command.
+```bash
+$ cd /opt/intel/computer_vision_sdk/install_dependencies
+$ sudo -E ./install_cv_sdk_dependencies.sh
+$ nano ~/.bashrc
+source /opt/intel/computer_vision_sdk/bin/setupvars.sh
+
+$ source ~/.bashrc
+$ cd /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/install_prerequisites
+$ sudo ./install_prerequisites.sh
+```
+3.【Optional execution】 Additional installation steps for the Intel® Movidius™ Neural Compute Stick v1 and Intel® Neural Compute Stick v2
+```bash
+$ sudo usermod -a -G users "$(whoami)"
+$ cat <<EOF > 97-usbboot.rules
+SUBSYSTEM=="usb", ATTRS{idProduct}=="2150", ATTRS{idVendor}=="03e7", GROUP="users", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEM=="usb", ATTRS{idProduct}=="2485", ATTRS{idVendor}=="03e7", GROUP="users", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEM=="usb", ATTRS{idProduct}=="f63b", ATTRS{idVendor}=="03e7", GROUP="users", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+EOF
+
+$ sudo cp 97-usbboot.rules /etc/udev/rules.d/
+$ sudo udevadm control --reload-rules
+$ sudo udevadm trigger
+$ sudo ldconfig
+$ rm 97-usbboot.rules
+```
+4.【Optional execution】 Additional installation steps for processor graphics (GPU)
+```bash
+$ cd /opt/intel/computer_vision_sdk/install_dependencies/
+$ sudo -E su
+$ uname -r
+4.15.0-42-generic #<--- display kernel version sample
+
+### Execute only when the kernel version is older than 4.14
+$ ./install_4_14_kernel.sh
+
+$ ./install_NEO_OCL_driver.sh
+$ sudo reboot
+```
+
+### 2. Work with RaspberryPi (Raspbian Stretch)
+**[Note] Only the execution environment is introduced.**  
+  
 1.Execute the following command.
 ```bash
 $ sudo apt update
