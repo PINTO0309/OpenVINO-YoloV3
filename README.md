@@ -65,7 +65,47 @@ $ python3 openvino_tiny-yolov3_test.py
 **https://software.intel.com/en-us/articles/OpenVINO-InferEngine#inpage-nav-11**
   
 <hr />
-  
+<br>
+<br>
+
+# Environment construction procedure
+### 1. Work with LaptopPC
+### 2. 【Option】Work with RaspberryPi
+1.Execute the following command.
+```bash
+$ sudo apt update
+$ sudo apt upgrade
+$ wget https://drive.google.com/open?id=1rBl_3kU4gsx-x2NG2I5uIhvA3fPqm8uE -o l_openvino_toolkit_ie_p_2018.5.445.tgz
+$ tar -zxf l_openvino_toolkit_ie_p_2018.5.445.tgz
+$ rm l_openvino_toolkit_ie_p_2018.5.445.tgz
+$ sed -i "s|<INSTALLDIR>|$(pwd)/inference_engine_vpu_arm|" inference_engine_vpu_arm/bin/setupvars.sh
+```
+2.Execute the following command.
+```bash
+$ nano ~/.bashrc
+### Add 1 row below
+source /home/pi/inference_engine_vpu_arm/bin/setupvars.sh
+
+$ source ~/.bashrc
+### Successful if displayed as below
+[setupvars.sh] OpenVINO environment initialized
+
+$ sudo usermod -a -G users "$(whoami)"
+$ sudo reboot
+```
+3.Update USB rule.
+```bash
+$ sh inference_engine_vpu_arm/install_dependencies/install_NCS_udev_rules.sh
+### It is displayed as follows
+Update udev rules so that the toolkit can communicate with your neural compute stick
+[install_NCS_udev_rules.sh] udev rules installed
+```
+**[Note] OpenCV 4.0.1 will be installed without permission when the work is finished.
+If you do not want to affect other environments, please edit environment variables after installation is completed.**
+<hr />
+<br>
+<br>
+
 # How to install Bazel (version 0.17.2, x86_64 only)
 ### 1. Bazel introduction command
 ```bash
