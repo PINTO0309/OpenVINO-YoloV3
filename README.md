@@ -162,6 +162,7 @@ Update udev rules so that the toolkit can communicate with your neural compute s
 If you do not want to affect other environments, please edit environment variables after installation is completed.**
 <br>
 <br>
+<br>
 
 # How to install Bazel (version 0.17.2, x86_64 only)
 ### 1. Bazel introduction command
