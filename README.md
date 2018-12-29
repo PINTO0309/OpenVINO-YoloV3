@@ -68,8 +68,9 @@ $ python3 openvino_tiny-yolov3_test.py
 <br>
 
 # Environment construction procedure
-### 1. Work with LaptopPC
-### 2. 【Option】Work with RaspberryPi
+### 1. Work with LaptopPC (Ubuntu 16.04)
+
+### 2. 【Option】Work with RaspberryPi (Raspbian Stretch)
 1.Execute the following command.
 ```bash
 $ sudo apt update
