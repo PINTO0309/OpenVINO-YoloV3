@@ -136,14 +136,23 @@ def camThread(LABELS, results, frameBuffer, camera_width, camera_height):
     global cam
     global window_name
 
-    cam = cv2.VideoCapture(0)
-    if cam.isOpened() != True:
-        print("USB Camera Open Error!!!")
-        sys.exit(0)
-    cam.set(cv2.CAP_PROP_FPS, 30)
-    cam.set(cv2.CAP_PROP_FRAME_WIDTH, camera_width)
-    cam.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_height)
-    window_name = "USB Camera"
+    #cam = cv2.VideoCapture(0)
+    #if cam.isOpened() != True:
+    #    print("USB Camera Open Error!!!")
+    #    sys.exit(0)
+    #cam.set(cv2.CAP_PROP_FPS, 30)
+    #cam.set(cv2.CAP_PROP_FRAME_WIDTH, camera_width)
+    #cam.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_height)
+    #window_name = "USB Camera"
+    #wait_key_time = 1
+
+    cam = cv2.VideoCapture("data/input/testvideo4.mp4")
+    camera_width = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
+    camera_height = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    frame_count = int(cam.get(cv2.CAP_PROP_FRAME_COUNT))
+    window_name = "Movie File"
+    wait_key_time = 30
+
     cv2.namedWindow(window_name, cv2.WINDOW_AUTOSIZE)
 
     while True:
@@ -190,7 +199,7 @@ def camThread(LABELS, results, frameBuffer, camera_width, camera_height):
         cv2.putText(color_image, detectfps, (width-170,30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (38,0,255), 1, cv2.LINE_AA)
         cv2.imshow(window_name, cv2.resize(color_image, (width, height)))
 
-        if cv2.waitKey(1)&0xFF == ord('q'):
+        if cv2.waitKey(wait_key_time)&0xFF == ord('q'):
             sys.exit(0)
 
         ## Print FPS
