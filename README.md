@@ -35,6 +35,11 @@ $ python3 openvino_yolov3_test.py
 ```bash
 $ python3 openvino_tiny-yolov3_test.py
 ```
+### YoloV3 + NCS2 MultiStick (Pretty slow)
+```bash
+$ openvino_yolov3_MultiStick_test.py -numncs 4
+```
+
 
 ## CPP Version YoloV3 / tiny-YoloV3 (Dec 16, 2018 Operation confirmed)
 **[cpp version is here](cpp)** "cpp/object_detection_demo_yolov3_async"
