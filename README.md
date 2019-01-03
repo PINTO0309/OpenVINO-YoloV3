@@ -27,7 +27,7 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 
 **<Python + YoloV3 + MP4, RaspberryPi3, NCS2 x4, 1.7 FPS>**  
 [<img src="media/04.gif" width=60%>](https://youtu.be/RBU1sDHNqxs)  
-
+  
 ## Python Version YoloV3 / tiny-YoloV3 (Dec 28, 2018 Operation confirmed)
 ### YoloV3
 ```bash
