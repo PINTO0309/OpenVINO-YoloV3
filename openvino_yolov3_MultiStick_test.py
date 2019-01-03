@@ -3,8 +3,7 @@ import numpy as np, math
 from openvino.inference_engine import IENetwork, IEPlugin
 import multiprocessing as mp
 from time import sleep
-
-m_input_size = 416
+import threading
 
 yolo_scale_13 = 13
 yolo_scale_26 = 26
@@ -125,7 +124,7 @@ def ParseYOLOV3Output(blob, resized_im_h, resized_im_w, original_im_h, original_
     return objects
 
 
-def camThread(LABELS, results, frameBuffer, camera_width, camera_height):
+def camThread(LABELS, results, frameBuffer, camera_width, camera_height, vidfps):
     global fps
     global detectfps
     global lastresults
@@ -140,7 +139,7 @@ def camThread(LABELS, results, frameBuffer, camera_width, camera_height):
     #if cam.isOpened() != True:
     #    print("USB Camera Open Error!!!")
     #    sys.exit(0)
-    #cam.set(cv2.CAP_PROP_FPS, 30)
+    #cam.set(cv2.CAP_PROP_FPS, vidfps)
     #cam.set(cv2.CAP_PROP_FRAME_WIDTH, camera_width)
     #cam.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_height)
     #window_name = "USB Camera"
@@ -151,7 +150,7 @@ def camThread(LABELS, results, frameBuffer, camera_width, camera_height):
     camera_height = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
     frame_count = int(cam.get(cv2.CAP_PROP_FRAME_COUNT))
     window_name = "Movie File"
-    wait_key_time = 30
+    wait_key_time = int(1000 / vidfps)
 
     cv2.namedWindow(window_name, cv2.WINDOW_AUTOSIZE)
 
@@ -226,54 +225,92 @@ def searchlist(l, x, notfoundvalue=-1):
         return notfoundvalue
 
 
-def inferencer(results, frameBuffer, device_count, camera_width, camera_height):
+def async_infer(ncsworker):
 
-    plugin = None
-    net = None
-    inferred_request = [0] * device_count
-    heap_request = []
-    inferred_cnt = 0
-    forced_sleep_time = (1 / device_count)
-
-    model_xml = "./lrmodels/YoloV3/FP16/frozen_yolo_v3.xml"
-    model_bin = "./lrmodels/YoloV3/FP16/frozen_yolo_v3.bin"
-    plugin = IEPlugin(device="MYRIAD")
-    net = IENetwork(model=model_xml, weights=model_bin)
-    input_blob = next(iter(net.inputs))
-    exec_net = plugin.load(network=net, num_requests=device_count)
+    ncsworker.skip_frame_measurement()
 
     while True:
+        ncsworker.predict_async()
 
+
+class NcsWorker(object):
+
+    def __init__(self, devid, frameBuffer, results, camera_width, camera_height, number_of_ncs, vidfps):
+        self.devid = devid
+        self.frameBuffer = frameBuffer
+        self.model_xml = "./lrmodels/YoloV3/FP16/frozen_yolo_v3.xml"
+        self.model_bin = "./lrmodels/YoloV3/FP16/frozen_yolo_v3.bin"
+        self.camera_width = camera_width
+        self.camera_height = camera_height
+        self.m_input_size = 416
+        self.threshould = 0.7
+        self.num_requests = 4
+        self.inferred_request = [0] * self.num_requests
+        self.heap_request = []
+        self.inferred_cnt = 0
+        self.plugin = IEPlugin(device="MYRIAD")
+        self.net = IENetwork(model=self.model_xml, weights=self.model_bin)
+        self.input_blob = next(iter(self.net.inputs))
+        self.exec_net = self.plugin.load(network=self.net, num_requests=self.num_requests)
+        self.results = results
+        self.number_of_ncs = number_of_ncs
+        self.predict_async_time = 800
+        self.skip_frame = 0
+        self.roop_frame = 0
+        self.vidfps = vidfps
+
+
+    def image_preprocessing(self, color_image):
+        prepimg = cv2.resize(color_image, (self.m_input_size, self.m_input_size))
+        prepimg = prepimg[np.newaxis, :, :, :]     # Batch size axis add
+        prepimg = prepimg.transpose((0, 3, 1, 2))  # NHWC to NCHW
+        return prepimg
+
+
+    def skip_frame_measurement(self):
+            surplustime_per_second = (1000 - self.predict_async_time)
+            if surplustime_per_second > 0.0:
+                frame_per_millisecond = (1000 / self.vidfps)
+                total_skip_frame = surplustime_per_second / frame_per_millisecond
+                self.skip_frame = int(total_skip_frame / self.num_requests)
+            else:
+                self.skip_frame = 0
+
+
+    def predict_async(self):
         try:
 
-            if frameBuffer.empty():
-                continue
-            color_image = frameBuffer.get()
+            if self.frameBuffer.empty():
+                return
 
-            prepimg = cv2.resize(color_image, (m_input_size, m_input_size))
-            prepimg = prepimg[np.newaxis, :, :, :]     # Batch size axis add
-            prepimg = prepimg.transpose((0, 3, 1, 2))  # NHWC to NCHW
+            self.roop_frame += 1
+            if self.roop_frame <= self.skip_frame:
+               self.frameBuffer.get()
+               return
+            self.roop_frame = 0
 
-            reqnum = searchlist(inferred_request, 0)
+            prepimg = self.image_preprocessing(self.frameBuffer.get())
+            reqnum = searchlist(self.inferred_request, 0)
+
             if reqnum > -1:
-                sleep(forced_sleep_time)
-                exec_net.start_async(request_id=reqnum, inputs={input_blob: prepimg})
-                inferred_request[reqnum] = 1
-                inferred_cnt += 1
-                if inferred_cnt == sys.maxsize:
-                    inferred_request = [0] * device_count
-                    heap_request = []
-                    inferred_cnt = 0
-                heapq.heappush(heap_request, (inferred_cnt, reqnum))
+                self.exec_net.start_async(request_id=reqnum, inputs={self.input_blob: prepimg})
+                self.inferred_request[reqnum] = 1
+                self.inferred_cnt += 1
+                if self.inferred_cnt == sys.maxsize:
+                    self.inferred_request = [0] * self.num_requests
+                    self.heap_request = []
+                    self.inferred_cnt = 0
+                heapq.heappush(self.heap_request, (self.inferred_cnt, reqnum))
 
-            cnt, dev = heapq.heappop(heap_request)
-            if exec_net.requests[dev].wait(0) == 0:
-                exec_net.requests[dev].wait(-1)
+            cnt, dev = heapq.heappop(self.heap_request)
+
+            if self.exec_net.requests[dev].wait(0) == 0:
+                self.exec_net.requests[dev].wait(-1)
 
                 objects = []
-                outputs = exec_net.requests[dev].outputs
+                outputs = self.exec_net.requests[dev].outputs
                 for output in outputs.values():
-                    objects = ParseYOLOV3Output(output, m_input_size, m_input_size, camera_height, camera_width, 0.7, objects)
+                    objects = ParseYOLOV3Output(output, self.m_input_size, self.m_input_size, self.camera_height, self.camera_width, self.threshould, objects)
 
                 objlen = len(objects)
                 for i in range(objlen):
@@ -283,14 +320,26 @@ def inferencer(results, frameBuffer, device_count, camera_width, camera_height):
                         if (IntersectionOverUnion(objects[i], objects[j]) >= 0.4):
                             objects[j].confidence = 0
 
-                results.put(objects)
-                inferred_request[dev] = 0
+                self.results.put(objects)
+                self.inferred_request[dev] = 0
             else:
-                heapq.heappush(heap_request, (cnt, dev))
-
+                heapq.heappush(self.heap_request, (cnt, dev))
         except:
             import traceback
             traceback.print_exc()
+
+
+def inferencer(results, frameBuffer, number_of_ncs, camera_width, camera_height, vidfps):
+
+    # Init infer threads
+    threads = []
+    for devid in range(number_of_ncs):
+        thworker = threading.Thread(target=async_infer, args=(NcsWorker(devid, frameBuffer, results, camera_width, camera_height, number_of_ncs, vidfps),))
+        thworker.start()
+        threads.append(thworker)
+
+    for th in threads:
+        th.join()
 
 
 if __name__ == '__main__':
@@ -302,6 +351,7 @@ if __name__ == '__main__':
     number_of_ncs = args.number_of_ncs
     camera_width = 320
     camera_height = 240
+    vidfps = 30
 
     try:
 
@@ -309,14 +359,16 @@ if __name__ == '__main__':
         frameBuffer = mp.Queue(10)
         results = mp.Queue()
 
-        # Start streaming
-        p = mp.Process(target=camThread, args=(LABELS, results, frameBuffer, camera_width, camera_height), daemon=True)
+        # Start detection MultiStick
+        # Activation of inferencer
+        p = mp.Process(target=inferencer, args=(results, frameBuffer, number_of_ncs, camera_width, camera_height, vidfps), daemon=True)
         p.start()
         processes.append(p)
 
-        # Start detection MultiStick
-        # Activation of inferencer
-        p = mp.Process(target=inferencer, args=(results, frameBuffer, number_of_ncs, camera_width, camera_height), daemon=True)
+        sleep(number_of_ncs * 7)
+
+        # Start streaming
+        p = mp.Process(target=camThread, args=(LABELS, results, frameBuffer, camera_width, camera_height, vidfps), daemon=True)
         p.start()
         processes.append(p)
 
