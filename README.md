@@ -90,10 +90,10 @@ $ openvino_yolov3_MultiStick_test.py -numncs 4
 $ cd ~
 $ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1tlDW_kDOchWbkZbfy5WfbsW-b_GpXgr7" > /dev/null
 $ CODE="$(awk '/_warning_/ {print $NF}' /tmp/cookie)"
-$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1tlDW_kDOchWbkZbfy5WfbsW-b_GpXgr7" -o l_openvino_toolkit_ie_p_2018.5.445.tgz
-$ tar -zxf l_openvino_toolkit_ie_p_2018.5.445.tgz
-$ rm l_openvino_toolkit_ie_p_2018.5.445.tgz
-$ cd l_openvino_toolkit_ie_p_2018.5.445
+$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1tlDW_kDOchWbkZbfy5WfbsW-b_GpXgr7" -o l_openvino_toolkit_p_2018.5.445.tgz
+$ tar -zxf l_openvino_toolkit_p_2018.5.445.tgz
+$ rm l_openvino_toolkit_p_2018.5.445.tgz
+$ cd l_openvino_toolkit_p_2018.5.445
 $ sudo -E ./install_cv_sdk_dependencies.sh
 
 ## GUI version installer
