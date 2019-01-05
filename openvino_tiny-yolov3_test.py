@@ -77,7 +77,12 @@ def IntersectionOverUnion(box_1, box_2):
     box_1_area = (box_1.ymax - box_1.ymin)  * (box_1.xmax - box_1.xmin)
     box_2_area = (box_2.ymax - box_2.ymin)  * (box_2.xmax - box_2.xmin)
     area_of_union = box_1_area + box_2_area - area_of_overlap
-    return (area_of_overlap / area_of_union)
+    retval = 0.0
+    if area_of_union <= 0.0:
+        retval = 0.0
+    else:
+        retval = (area_of_overlap / area_of_union)
+    return retval
 
 
 def ParseYOLOV3Output(blob, resized_im_h, resized_im_w, original_im_h, original_im_w, threshold, objects):
@@ -151,7 +156,7 @@ def main_IE_infer():
     #model_xml = "lrmodels/tiny-YoloV3/FP16/frozen_tiny_yolo_v3.xml" #<--- MYRIAD
     model_bin = os.path.splitext(model_xml)[0] + ".bin"
 
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
     cap.set(cv2.CAP_PROP_FPS, 30)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, camera_width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_height)
@@ -203,7 +208,9 @@ def main_IE_infer():
                 continue
             for j in range(i + 1, objlen):
                 if (IntersectionOverUnion(objects[i], objects[j]) >= 0.4):
-                    objects[j].confidence = 0
+                    if objects[i].confidence < objects[j].confidence:
+                        objects[i], objects[j] = objects[j], objects[i]
+                    objects[j].confidence = 0.0
         
         # Drawing boxes
         for obj in objects:
@@ -211,10 +218,10 @@ def main_IE_infer():
                 continue
             label = obj.class_id
             confidence = obj.confidence
-            if confidence > 0.2:
-                label_text = LABELS[label] + " (" + "{:.1f}".format(confidence * 100) + "%)"
-                cv2.rectangle(image, (obj.xmin, obj.ymin), (obj.xmax, obj.ymax), box_color, box_thickness)
-                cv2.putText(image, label_text, (obj.xmin, obj.ymin - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, label_text_color, 1)
+            #if confidence >= 0.2:
+            label_text = LABELS[label] + " (" + "{:.1f}".format(confidence * 100) + "%)"
+            cv2.rectangle(image, (obj.xmin, obj.ymin), (obj.xmax, obj.ymax), box_color, box_thickness)
+            cv2.putText(image, label_text, (obj.xmin, obj.ymin - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, label_text_color, 1)
 
         cv2.putText(image, fps, (camera_width - 170, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (38, 0, 255), 1, cv2.LINE_AA)
         cv2.imshow("Result", image)
