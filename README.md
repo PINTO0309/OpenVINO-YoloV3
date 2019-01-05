@@ -16,6 +16,11 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
   
 ![05](media/05.png)
 
+## My articles
+1. [[24 FPS] Boost RaspberryPi3 with four Neural Compute Stick 2 (NCS2) MobileNet-SSD / YoloV3 [48 FPS for Core i7]](https://qiita.com/PINTO/items/94d5557fca9911cc892d#24-fps-boost-raspberrypi3-with-four-neural-compute-stick-2-ncs2-mobilenet-ssd--yolov3-48-fps-for-core-i7)
+2. [[13 FPS] NCS2 x 4 + Full size YoloV3 performance has been tripled](https://qiita.com/PINTO/items/c766ac9614052f4d6304#13-fps-ncs2-x-4--full-size-yolov3-performance-has-been-tripled)
+
+## Operation sample
 **<CPP + YoloV3 - Intel Core i7-8750H, CPU Only, 4 FPS - 5 FPS>**  
 [<img src="media/01.gif" width=80%>](https://youtu.be/vOcj_3ByK68)  
   
@@ -25,7 +30,8 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 **<Python + tiny-YoloV3 + USBCamera, Core i7-8750H, CPU Only, 30 FPS>**  
 [<img src="media/03.gif" width=60%>](https://youtu.be/HTDzpFFpBbc)  
 
-**<Python + YoloV3 + MP4, RaspberryPi3, NCS2 x4, 13 FPS>**  
+**<Python + YoloV3 + MP4, Core i7-8750H, NCS2 x4, 13 FPS>  
+【Note】 Due to the performance difference of ARM <-> Core series, performance is degraded in RaspberryPi3.**  
 [<img src="media/06.gif" width=60%>](https://youtu.be/AT75LBIOAck)  
   
 ## Python Version YoloV3 / tiny-YoloV3 (Dec 28, 2018 Operation confirmed)

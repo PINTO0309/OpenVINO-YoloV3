@@ -17,7 +17,9 @@ On the start-up, the application reads command-line parameters and loads a netwo
 Engine. Upon getting a frame from the OpenCV VideoCapture, it performs inference and displays the results.
 
 ## Recompile
-In order to correspond to your machine's architecture, you need to recompile the binary by executing the following command.
+1. Follow the procedure described at the following URL and prepare the environment.  
+**[README.md#1-work-with-laptoppc-ubuntu-1604](https://github.com/PINTO0309/OpenVINO-YoloV3#1-work-with-laptoppc-ubuntu-1604)**
+2. In order to correspond to your machine's architecture, you need to recompile the binary by executing the following command.
 ```bash
 $ cd ~/OpenVINO-YoloV3/cpp
 $ sudo cp main.cpp /opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/object_detection_demo_yolov3_async
