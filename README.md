@@ -254,15 +254,7 @@ $ python3 tfconverter.py
 
 # How to check the graph structure of a ".pb" file [Part.3]
 Use Tensorboard.
-### 1. Build Tensorboard
-```bash
-$ cd ~
-$ git clone -b v1.11.0 https://github.com/tensorflow/tensorflow.git
-$ cd tensorflow
-$ git checkout -b v1.11.0
-$ bazel build tensorflow/tensorboard:tensorboard
-```
-### 2. Run log output program for Tensorboard
+### 1. Run log output program for Tensorboard
 ```python
 import tensorflow as tf
 from tensorflow.python.platform import gfile
@@ -278,12 +270,25 @@ with tf.Session() as sess:
     train_writer = tf.summary.FileWriter(LOGDIR)
     train_writer.add_graph(sess.graph)
 ```
-### 3. Starting Tensorboard
+### 2. Starting Tensorboard
 ```bash
-$ bazel-bin/tensorflow/tensorboard/tensorboard --logdir=path/to/logs
+$ tensorboard --logdir=path/to/logs
 ```
-### 4. Display of Tensorboard
+### 3. Display of Tensorboard
 Access `http://localhost:6006` from the browser.
   
+# How to check the graph structure of a ".pb" file [Part.4]
+Use **[netron](https://github.com/lutzroeder/netron.git)**.
+### 1. Install netron
+```bash
+$ sudo -H pip3 install netron
+```
+### 2.Starting netron
+```bash
+$ netron -b [MODEL_FILE]
+```
+### 3. Display of netron
+Access `http://localhost:8080` from the browser.
+
 # Neural Compute Stick 2
 **https://ncsforum.movidius.com/discussion/1302/intel-neural-compute-stick-2-information**
