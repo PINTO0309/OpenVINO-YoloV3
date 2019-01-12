@@ -288,7 +288,7 @@ $ sudo -H pip3 install netron
 $ netron -b [MODEL_FILE]
 ```
 ### 3. Display of netron
-Access `http://localhost:8080` from the browser.
-
+Access `http://localhost:8080` from the browser.  
+![07](media/07.png)
 # Neural Compute Stick 2
 **https://ncsforum.movidius.com/discussion/1302/intel-neural-compute-stick-2-information**
