@@ -283,7 +283,7 @@ Use **[netron](https://github.com/lutzroeder/netron.git)**.
 ```bash
 $ sudo -H pip3 install netron
 ```
-### 2.Starting netron
+### 2. Starting netron
 ```bash
 $ netron -b [MODEL_FILE]
 ```
