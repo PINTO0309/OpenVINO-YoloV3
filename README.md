@@ -69,6 +69,7 @@ $ openvino_yolov3_MultiStick_test.py -numncs 4
   
 ## OpenVINO Supported Layers (As of Dec 25, 2018)
 
+- [Supported Framework Layers](https://docs.openvinotoolkit.org/R5/_docs_MO_DG_prepare_model_Supported_Frameworks_Layers.html)
 - [Supported Caffe Layers](https://software.intel.com/en-us/articles/OpenVINO-Using-Caffe#caffe-supported-layers)
 - [Supported TensorFlow Layers](https://software.intel.com/en-us/articles/OpenVINO-Using-TensorFlow#tensorflow-supported-layers)
 - [Supported MXNet Layers](https://software.intel.com/en-us/articles/OpenVINO-Using-MXNet#mxnet-supported-layers)
