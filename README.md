@@ -45,7 +45,7 @@ $ python3 openvino_tiny-yolov3_MultiStick_test.py -numncs 1
 ```
 ### YoloV3 + NCS2 MultiStick (Pretty slow)
 ```bash
-$ openvino_yolov3_MultiStick_test.py -numncs 4
+$ python3 openvino_yolov3_MultiStick_test.py -numncs 4
 ```
 
 
