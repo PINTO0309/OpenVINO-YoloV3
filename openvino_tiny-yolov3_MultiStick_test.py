@@ -96,11 +96,10 @@ def ParseYOLOV3Output(blob, resized_im_h, resized_im_w, original_im_h, original_
     side = out_blob_h
     anchor_offset = 0
 
-    elif len(anchors) == 12: ## tiny-YoloV3
-        if side == yolo_scale_13:
-            anchor_offset = 2 * 3
-        elif side == yolo_scale_26:
-            anchor_offset = 2 * 0
+    if side == yolo_scale_13:
+        anchor_offset = 2 * 3
+    elif side == yolo_scale_26:
+        anchor_offset = 2 * 0
 
     side_square = side * side
     output_blob = blob.flatten()
