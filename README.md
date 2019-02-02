@@ -295,3 +295,6 @@ Access `http://localhost:8080` from the browser.
 ![07](media/07.png)
 # Neural Compute Stick 2
 **https://ncsforum.movidius.com/discussion/1302/intel-neural-compute-stick-2-information**
+
+# Issue
+**[OpenVINO failing on YoloV3's YoloRegion, only one working on FP16, all working on FP32](https://software.intel.com/en-us/forums/computer-vision/topic/804019)**
