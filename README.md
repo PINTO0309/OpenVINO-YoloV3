@@ -40,7 +40,7 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 
 **<Python + YoloV3 + MP4, Core i7-8750H, NCS2 x4, 13 FPS>  
 【Note】 Due to the performance difference of ARM <-> Core series, performance is degraded in RaspberryPi3.**  
-[<img src="media/06.gif" width=60%>](https://youtu.be/7zkb413HCAs)  
+[<img src="media/06.gif" width=60%>](https://youtu.be/AT75LBIOAck)  
   
 ## Python Version YoloV3 / tiny-YoloV3 (Dec 28, 2018 Operation confirmed)
 ### YoloV3
