@@ -36,7 +36,7 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 **<Python + tiny-YoloV3 + Async + USBCamera, Core i7-8750H, NCS2, 30 FPS+>**  
 **To raise the detection rate, lower the threshold by yourself.**  
 **The default threshold is 40%.**  
-[<img src="media/11.gif" width=60%>](https://youtu.be/HTDzpFFpBbc) 
+[<img src="media/11.gif" width=60%>](https://youtu.be/7zkb413HCAs) 
 
 **<Python + YoloV3 + MP4, Core i7-8750H, NCS2 x4, 13 FPS>  
 【Note】 Due to the performance difference of ARM <-> Core series, performance is degraded in RaspberryPi3.**  
