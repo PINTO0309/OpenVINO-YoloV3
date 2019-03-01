@@ -258,10 +258,14 @@ class NcsWorker(object):
         self.skip_frame = 0
         self.roop_frame = 0
         self.vidfps = vidfps
-
+        self.new_w = int(camera_width * min(self.m_input_size/camera_width, self.m_input_size/camera_height))
+        self.new_h = int(camera_height * min(self.m_input_size/camera_width, self.m_input_size/camera_height))
 
     def image_preprocessing(self, color_image):
-        prepimg = cv2.resize(color_image, (self.m_input_size, self.m_input_size))
+        resized_image = cv2.resize(color_image, (self.new_w, self.new_h), interpolation = cv2.INTER_CUBIC)
+        canvas = np.full((self.m_input_size, self.m_input_size, 3), 128)
+        canvas[(self.m_input_size-self.new_h)//2:(self.m_input_size-self.new_h)//2 + self.new_h,(self.m_input_size-self.new_w)//2:(self.m_input_size-self.new_w)//2 + self.new_w,  :] = resized_image
+        prepimg = canvas
         prepimg = prepimg[np.newaxis, :, :, :]     # Batch size axis add
         prepimg = prepimg.transpose((0, 3, 1, 2))  # NHWC to NCHW
         return prepimg
@@ -310,7 +314,7 @@ class NcsWorker(object):
                 objects = []
                 outputs = self.exec_net.requests[dev].outputs
                 for output in outputs.values():
-                    objects = ParseYOLOV3Output(output, self.m_input_size, self.m_input_size, self.camera_height, self.camera_width, self.threshould, objects)
+                    objects = ParseYOLOV3Output(output, self.new_h, self.new_w, self.camera_height, self.camera_width, self.threshould, objects)
 
                 objlen = len(objects)
                 for i in range(objlen):

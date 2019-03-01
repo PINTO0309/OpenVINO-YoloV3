@@ -145,6 +145,8 @@ def main_IE_infer():
     vidfps = 0
     skip_frame = 0
     elapsedTime = 0
+    new_w = int(camera_width * min(m_input_size/camera_width, m_input_size/camera_height))
+    new_h = int(camera_height * min(m_input_size/camera_width, m_input_size/camera_height))
 
     args = build_argparser().parse_args()
     model_xml = "lrmodels/YoloV3/FP32/frozen_yolo_v3.xml" #<--- CPU
@@ -183,7 +185,10 @@ def main_IE_infer():
         if not ret:
             break
 
-        prepimg = cv2.resize(image, (m_input_size, m_input_size))
+        resized_image = cv2.resize(image, (new_w, new_h), interpolation = cv2.INTER_CUBIC)
+        canvas = np.full((m_input_size, m_input_size, 3), 128)
+        canvas[(m_input_size-new_h)//2:(m_input_size-new_h)//2 + new_h,(m_input_size-new_w)//2:(m_input_size-new_w)//2 + new_w,  :] = resized_image
+        prepimg = canvas
         prepimg = prepimg[np.newaxis, :, :, :]     # Batch size axis add
         prepimg = prepimg.transpose((0, 3, 1, 2))  # NHWC to NCHW
         outputs = exec_net.infer(inputs={input_blob: prepimg})
@@ -191,7 +196,7 @@ def main_IE_infer():
         objects = []
 
         for output in outputs.values():
-            objects = ParseYOLOV3Output(output, m_input_size, m_input_size, camera_height, camera_width, 0.7, objects)
+            objects = ParseYOLOV3Output(output, new_h, new_w, camera_height, camera_width, 0.7, objects)
 
         # Filtering overlapping boxes
         objlen = len(objects)
