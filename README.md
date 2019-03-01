@@ -11,7 +11,7 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 |1|SSD|×|◯|ALL|
 |2|**[MobileNet-SSD](https://github.com/PINTO0309/MobileNet-SSD-RealSense.git)**|△|△|Short distance|
 |3|**[YoloV3](https://github.com/PINTO0309/OpenVINO-YoloV3.git)**|×|◯|ALL|
-|4|**[tiny-YoloV3](https://github.com/PINTO0309/OpenVINO-YoloV3.git)**|◯|×|Long distance|
+|4|**[tiny-YoloV3](https://github.com/PINTO0309/OpenVINO-YoloV3.git)**|◯|△|Long distance|
 
   
 ![05](media/05.png)
