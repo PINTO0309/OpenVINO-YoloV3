@@ -80,7 +80,12 @@ def IntersectionOverUnion(box_1, box_2):
     box_1_area = (box_1.ymax - box_1.ymin)  * (box_1.xmax - box_1.xmin)
     box_2_area = (box_2.ymax - box_2.ymin)  * (box_2.xmax - box_2.xmin)
     area_of_union = box_1_area + box_2_area - area_of_overlap
-    return (area_of_overlap / area_of_union)
+    retval = 0.0
+    if area_of_union <= 0.0:
+        retval = 0.0
+    else:
+        retval = (area_of_overlap / area_of_union)
+    return retval
 
 
 def ParseYOLOV3Output(blob, resized_im_h, resized_im_w, original_im_h, original_im_w, threshold, objects):
