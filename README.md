@@ -307,6 +307,7 @@ Access `http://localhost:8080` from the browser.
 # Issue
 **[OpenVINO failing on YoloV3's YoloRegion, only one working on FP16, all working on FP32](https://software.intel.com/en-us/forums/computer-vision/topic/804019)**  
 **[Regarding YOLO family networks on NCS2. Possibly a work-around](https://software.intel.com/en-us/forums/computer-vision/topic/805425)**  
+**[Convert YOLOv3 Model to IR](https://software.intel.com/en-us/forums/computer-vision/topic/805370)**  
 
 # Reference
 **https://github.com/opencv/opencv/wiki/Intel%27s-Deep-Learning-Inference-Engine-backend**
