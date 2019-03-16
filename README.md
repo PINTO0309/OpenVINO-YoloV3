@@ -21,7 +21,8 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 2. [[13 FPS] NCS2 x 4 + Full size YoloV3 performance has been tripled](https://qiita.com/PINTO/items/c766ac9614052f4d6304#13-fps-ncs2-x-4--full-size-yolov3-performance-has-been-tripled)
 
 ## Change history
-[Mar 01, 2019]　Improve accuracy. Fixed preprocessing and postprocessing bug.
+[Mar 01, 2019]　Improve accuracy. Fixed preprocessing and postprocessing bug.  
+[Mar 17, 2019]　Added a training procedure with your own data set.
 
 ## Operation sample
 **<CPP + YoloV3 - Intel Core i7-8750H, CPU Only, 4 FPS - 5 FPS>**  
@@ -186,7 +187,12 @@ Update udev rules so that the toolkit can communicate with your neural compute s
 [install_NCS_udev_rules.sh] udev rules installed
 ```
 **[Note] OpenCV 4.0.1 will be installed without permission when the work is finished.
-If you do not want to affect other environments, please edit environment variables after installation is completed.**
+If you do not want to affect other environments, please edit environment variables after installation is completed.**  
+
+# Training with your own data set  
+See the article below.  
+A sample of one-class training with Darknet and tiny-YoloV3.  
+**https://qiita.com/PINTO/items/7dd7135085a7249bf17a**
 <br>
 <br>
 <br>
