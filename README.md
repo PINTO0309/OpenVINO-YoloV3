@@ -192,7 +192,7 @@ If you do not want to affect other environments, please edit environment variabl
 # Training with your own data set  
 See the article below.  
 A sample of one-class training with Darknet and tiny-YoloV3.  
-**https://qiita.com/PINTO/items/7dd7135085a7249bf17a**
+**https://qiita.com/PINTO/items/7dd7135085a7249bf17a#support-for-local-training-and-openvino-of-one-class-tiny-yolov3-with-a-proprietary-data-set**
 <br>
 <br>
 <br>
