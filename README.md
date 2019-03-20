@@ -19,6 +19,7 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 ## My articles
 1. [[24 FPS] Boost RaspberryPi3 with four Neural Compute Stick 2 (NCS2) MobileNet-SSD / YoloV3 [48 FPS for Core i7]](https://qiita.com/PINTO/items/94d5557fca9911cc892d#24-fps-boost-raspberrypi3-with-four-neural-compute-stick-2-ncs2-mobilenet-ssd--yolov3-48-fps-for-core-i7)
 2. [[13 FPS] NCS2 x 4 + Full size YoloV3 performance has been tripled](https://qiita.com/PINTO/items/c766ac9614052f4d6304#13-fps-ncs2-x-4--full-size-yolov3-performance-has-been-tripled)
+3. [Support for local training and OpenVINO of One Class tiny-YoloV3 with a proprietary data set](https://qiita.com/PINTO/items/7dd7135085a7249bf17a#support-for-local-training-and-openvino-of-one-class-tiny-yolov3-with-a-proprietary-data-set)
 
 ## Change history
 [Mar 01, 2019]　Improve accuracy. Fixed preprocessing and postprocessing bug.  
