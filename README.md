@@ -78,7 +78,7 @@ $ python3 openvino_yolov3_MultiStick_test.py -numncs 4
 - USB Camera (PlaystationEye) / Movie file (mp4)
 - Intel Neural Compute Stick v1 / v2
   
-## OpenVINO Supported Layers (As of Dec 25, 2018)
+## OpenVINO Supported Layers (As of Apr 14, 2019)
 
 - [Supported Framework Layers](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_Supported_Frameworks_Layers.html)
 - [Supported Caffe Layers](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_Caffe.html#caffe-supported-layers)
