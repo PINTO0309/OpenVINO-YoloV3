@@ -22,9 +22,9 @@ Engine. Upon getting a frame from the OpenCV VideoCapture, it performs inference
 2. In order to correspond to your machine's architecture, you need to recompile the binary by executing the following command.
 ```bash
 $ cd ~/OpenVINO-YoloV3/cpp
-$ sudo cp main.cpp /opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/object_detection_demo_yolov3_async
-$ sudo cp object_detection_demo_yolov3_async.hpp /opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/object_detection_demo_yolov3_async
-$ cd /opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples
+$ sudo cp main.cpp /opt/intel/openvino/deployment_tools/inference_engine/samples/object_detection_demo_yolov3_async
+$ sudo cp object_detection_demo_yolov3_async.hpp /opt/intel/openvino/deployment_tools/inference_engine/samples/object_detection_demo_yolov3_async
+$ cd /opt/intel/openvino/deployment_tools/inference_engine/samples
 $ sudo ./build_samples.sh
 $ cd ~/OpenVINO-YoloV3/cpp
 $ cp $HOME/inference_engine_samples_build/intel64/Release/object_detection_demo_yolov3_async/object_detection_demo_yolov3_async .
