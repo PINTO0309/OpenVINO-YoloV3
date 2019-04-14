@@ -69,44 +69,181 @@ $ python3 openvino_yolov3_MultiStick_test.py -numncs 4
 - Ubuntu 16.04 x86_64
 - RaspberryPi3
 - Raspbian Stretch armv7l
-- OpenVINO toolkit 2018 R5 (2018.5.445)
+- OpenVINO toolkit 2019 R1 (2019.1.094)
 - Python 3.5
 - OpenCV 4.0.1-openvino
-- Tensorflow v1.11.0 or Tensorflow-GPU v1.11.0 (pip install)
+- Tensorflow v1.12.0 or Tensorflow-GPU v1.12.0 (pip install)
 - YoloV3 (MS-COCO)
 - tiny-YoloV3 (MS-COCO)
 - USB Camera (PlaystationEye) / Movie file (mp4)
 - Intel Neural Compute Stick v1 / v2
   
-## OpenVINO Supported Layers (As of Dec 25, 2018)
+## OpenVINO Supported Layers (As of Apr 14, 2019)
 
-- [Supported Framework Layers](https://docs.openvinotoolkit.org/R5/_docs_MO_DG_prepare_model_Supported_Frameworks_Layers.html)
-- [Supported Caffe Layers](https://software.intel.com/en-us/articles/OpenVINO-Using-Caffe#caffe-supported-layers)
-- [Supported TensorFlow Layers](https://software.intel.com/en-us/articles/OpenVINO-Using-TensorFlow#tensorflow-supported-layers)
-- [Supported MXNet Layers](https://software.intel.com/en-us/articles/OpenVINO-Using-MXNet#mxnet-supported-layers)
-- [Supported ONNX Layers](https://software.intel.com/en-us/articles/OpenVINO-Using-ONNX#supported-onnx-layers)
+- [Supported Framework Layers](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_Supported_Frameworks_Layers.html)
+- [Supported Caffe Layers](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_Caffe.html#caffe-supported-layers)
+- [Supported TensorFlow Layers](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_TensorFlow.html#tensorflow-supported-layers)
+- [Supported MXNet Layers](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_MxNet.html#mxnet-supported-layers)
+- [Supported ONNX Layers](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_ONNX.html#supported-onnx-layers)
 
-**Supported Devices (https://software.intel.com/en-us/articles/OpenVINO-InferEngine#inpage-nav-10-2)**
-<table><tbody></tbody><thead><tr><th>Layers</th><th>GPU</th><th>CPU</th><th>MYRIAD</th><th>GNA</th><th>FPGA</th><th>ShapeInfer</th></tr></thead><tbody><tr><td>Activation-Clamp</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Activation-ELU</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Activation-Leaky ReLU</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Activation-PReLU</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Activation-ReLU</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Activation-ReLU6</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Activation-Sigmoid/Logistic</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Activation-TanH</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>ArgMax</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>BatchNormalization</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Concat</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Const</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td></tr><tr><td>Convolution-Dilated</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Convolution-Grouped</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Convolution-Ordinary</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Crop</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>CTCGreedyDecoder</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Deconvolution</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>DetectionOutput</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Eltwise-Max</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Eltwise-Mul</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Eltwise-Sum</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Flatten</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>FullyConnected (Inner Product)</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>GRN</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Interp</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>LRN (Norm)</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Memory</td><td>Not Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>MVN</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Normalize</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Permute</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Pooling(AVG,MAX)</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Power</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>PriorBox</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>PriorBoxClustered</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Proposal</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>PSROIPooling</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>RegionYolo</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>ReorgYolo</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Resample</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Reshape</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>ROIPooling</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Scale</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td></tr><tr><td>ScaleShift</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>SimplerNMS</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Slice</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>SoftMax</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>SpatialTransformer</td><td>Not Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Split</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Tile</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Unpooling</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td></tr><tr><td>Upsampling</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td></tr></tbody></table>
+**Supported Devices (https://docs.openvinotoolkit.org/latest/_docs_IE_DG_supported_plugins_Supported_Devices.html#supported_layers)**
+<table class="doxtable">
+<tr>
+<th align="left">Layers </th><th align="center">GPU </th><th align="center">CPU </th><th align="center">MYRIAD(VPU) </th><th align="center">GNA </th><th align="center">FPGA </th><th align="center">ShapeInfer  </th></tr>
+<tr>
+<td align="left">Activation-Clamp </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-ELU </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-Leaky ReLU </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-PReLU </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-ReLU </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-ReLU6 </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-Sigmoid/Logistic </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-TanH </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">ArgMax </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">BatchNormalization </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Concat </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Const </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Convolution-Dilated </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Convolution-Dilated 3D </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Convolution-Grouped </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Convolution-Grouped 3D </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Convolution-Ordinary </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Convolution-Ordinary 3D </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Crop </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">CTCGreedyDecoder </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Deconvolution </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Deconvolution 3D </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">DetectionOutput </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Eltwise-Max </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Eltwise-Mul </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Eltwise-Sum </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Flatten </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">FullyConnected (Inner Product) </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Gather </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Gemm </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">GRN </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Interp </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">LRN (Norm) </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">LSTMCell </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">GRUCell </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">RNNCell </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">LSTMSequence </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">GRUSequence </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">RNNSequence </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Memory </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">MVN </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Normalize </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Pad </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Permute </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Pooling(AVG,MAX) </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Pooling(AVG,MAX) 3D </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Power </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">PriorBox </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">PriorBoxClustered </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Proposal </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">PSROIPooling </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">RegionYolo </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">ReorgYolo </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Resample </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Reshape </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">RNN </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">ROIPooling </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">ScaleShift </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">SimplerNMS </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Slice </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">SoftMax </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">SpatialTransformer </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Split </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">TensorIterator </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Tile </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Unpooling </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Upsampling </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+</table>
   
 ## OpenVINO - Python API
-**https://software.intel.com/en-us/articles/OpenVINO-InferEngine#inpage-nav-9**
+**https://docs.openvinotoolkit.org/latest/_inference_engine_ie_bridges_python_docs_api_overview.html**
   
 <br>
 <br>
 
 # Environment construction procedure
 ### 1. Work with LaptopPC (Ubuntu 16.04)
-1.OpenVINO R5 Full-Install. Execute the following command.
+1.OpenVINO 2019R1 Full-Install. Execute the following command.
 ```bash
 $ cd ~
-$ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1tlDW_kDOchWbkZbfy5WfbsW-b_GpXgr7" > /dev/null
+$ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1OW2HK4KsImPuqvHI7NZ7_w9P7rB80sBI" > /dev/null
 $ CODE="$(awk '/_warning_/ {print $NF}' /tmp/cookie)"
-$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1tlDW_kDOchWbkZbfy5WfbsW-b_GpXgr7" -o l_openvino_toolkit_p_2018.5.445.tgz
-$ tar -zxf l_openvino_toolkit_p_2018.5.445.tgz
-$ rm l_openvino_toolkit_p_2018.5.445.tgz
-$ cd l_openvino_toolkit_p_2018.5.445
-$ sudo -E ./install_cv_sdk_dependencies.sh
+$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1OW2HK4KsImPuqvHI7NZ7_w9P7rB80sBI" -o l_openvino_toolkit_p_2019.1.094.tgz
+$ tar -zxf l_openvino_toolkit_p_2019.1.094.tgz
+$ rm l_openvino_toolkit_p_2019.1.094.tgz
+$ cd l_openvino_toolkit_p_2019.1.094
+$ sudo -E ./install_openvino_dependencies.sh
 
 ## GUI version installer
 $ sudo ./install_GUI.sh
@@ -116,13 +253,13 @@ $ sudo ./install.sh
 ```
 2.Configure the Model Optimizer. Execute the following command.
 ```bash
-$ cd /opt/intel/computer_vision_sdk/install_dependencies
-$ sudo -E ./install_cv_sdk_dependencies.sh
+$ cd /opt/intel/openvino/install_dependencies/
+$ sudo -E ./install_openvino_dependencies.sh
 $ nano ~/.bashrc
-source /opt/intel/computer_vision_sdk/bin/setupvars.sh
+source /opt/intel/openvino/bin/setupvars.sh
 
 $ source ~/.bashrc
-$ cd /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/install_prerequisites
+$ cd /opt/intel/openvino/deployment_tools/model_optimizer/install_prerequisites/
 $ sudo ./install_prerequisites.sh
 ```
 3.【Optional execution】 Additional installation steps for the Intel® Movidius™ Neural Compute Stick v1 and Intel® Neural Compute Stick v2
@@ -140,9 +277,9 @@ $ sudo udevadm trigger
 $ sudo ldconfig
 $ rm 97-usbboot.rules
 ```
-4.【Optional execution】 Additional installation steps for processor graphics (GPU)
+4.【Optional execution】 Additional installation steps for processor graphics (GPU, Intel HD Graphics series only)
 ```bash
-$ cd /opt/intel/computer_vision_sdk/install_dependencies/
+$ cd /opt/intel/openvino/install_dependencies/
 $ sudo -E su
 $ uname -r
 4.15.0-42-generic #<--- display kernel version sample
@@ -161,11 +298,11 @@ $ sudo reboot
 ```bash
 $ sudo apt update
 $ sudo apt upgrade
-$ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1rBl_3kU4gsx-x2NG2I5uIhvA3fPqm8uE" > /dev/null
+$ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1gMNE3bA8_DVGwFxV4dJYTP3qmGwKnkX6" > /dev/null
 $ CODE="$(awk '/_warning_/ {print $NF}' /tmp/cookie)"
-$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1rBl_3kU4gsx-x2NG2I5uIhvA3fPqm8uE" -o l_openvino_toolkit_ie_p_2018.5.445.tgz
-$ tar -zxvf l_openvino_toolkit_ie_p_2018.5.445.tgz
-$ rm l_openvino_toolkit_ie_p_2018.5.445.tgz
+$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1gMNE3bA8_DVGwFxV4dJYTP3qmGwKnkX6" -o l_openvino_toolkit_raspbi_p_2019.1.094.tgz
+$ tar -zxvf l_openvino_toolkit_raspbi_p_2019.1.094.tgz
+$ rm l_openvino_toolkit_raspbi_p_2019.1.094.tgz
 $ sed -i "s|<INSTALLDIR>|$(pwd)/inference_engine_vpu_arm|" inference_engine_vpu_arm/bin/setupvars.sh
 ```
 2.Execute the following command.
