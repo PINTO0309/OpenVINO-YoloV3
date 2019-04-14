@@ -277,7 +277,7 @@ $ sudo udevadm trigger
 $ sudo ldconfig
 $ rm 97-usbboot.rules
 ```
-4.【Optional execution】 Additional installation steps for processor graphics (GPU)
+4.【Optional execution】 Additional installation steps for processor graphics (GPU, Intel HD Graphics series only)
 ```bash
 $ cd /opt/intel/openvino/install_dependencies/
 $ sudo -E su
