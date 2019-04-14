@@ -325,7 +325,7 @@ $ sh inference_engine_vpu_arm/install_dependencies/install_NCS_udev_rules.sh
 Update udev rules so that the toolkit can communicate with your neural compute stick
 [install_NCS_udev_rules.sh] udev rules installed
 ```
-**[Note] OpenCV 4.0.1 will be installed without permission when the work is finished.
+**[Note] OpenCV 4.1.0 will be installed without permission when the work is finished.
 If you do not want to affect other environments, please edit environment variables after installation is completed.**  
 
 # Training with your own data set  
