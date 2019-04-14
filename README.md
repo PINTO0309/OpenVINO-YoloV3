@@ -86,8 +86,145 @@ $ python3 openvino_yolov3_MultiStick_test.py -numncs 4
 - [Supported MXNet Layers](https://software.intel.com/en-us/articles/OpenVINO-Using-MXNet#mxnet-supported-layers)
 - [Supported ONNX Layers](https://software.intel.com/en-us/articles/OpenVINO-Using-ONNX#supported-onnx-layers)
 
-**Supported Devices (https://software.intel.com/en-us/articles/OpenVINO-InferEngine#inpage-nav-10-2)**
-<table><tbody></tbody><thead><tr><th>Layers</th><th>GPU</th><th>CPU</th><th>MYRIAD</th><th>GNA</th><th>FPGA</th><th>ShapeInfer</th></tr></thead><tbody><tr><td>Activation-Clamp</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Activation-ELU</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Activation-Leaky ReLU</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Activation-PReLU</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Activation-ReLU</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Activation-ReLU6</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Activation-Sigmoid/Logistic</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Activation-TanH</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>ArgMax</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>BatchNormalization</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Concat</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Const</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td></tr><tr><td>Convolution-Dilated</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Convolution-Grouped</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Convolution-Ordinary</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Crop</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>CTCGreedyDecoder</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Deconvolution</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>DetectionOutput</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Eltwise-Max</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Eltwise-Mul</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Eltwise-Sum</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Flatten</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>FullyConnected (Inner Product)</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>GRN</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Interp</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>LRN (Norm)</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Memory</td><td>Not Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>MVN</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Normalize</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Permute</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Pooling(AVG,MAX)</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Power</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>PriorBox</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>PriorBoxClustered</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Proposal</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>PSROIPooling</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>RegionYolo</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>ReorgYolo</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Resample</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Reshape</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>ROIPooling</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Scale</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td></tr><tr><td>ScaleShift</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>SimplerNMS</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Slice</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>SoftMax</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>SpatialTransformer</td><td>Not Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Split</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Supported</td></tr><tr><td>Tile</td><td>Supported</td><td>Supported</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Supported</td></tr><tr><td>Unpooling</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td></tr><tr><td>Upsampling</td><td>Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td><td>Not Supported</td></tr></tbody></table>
+**Supported Devices (https://docs.openvinotoolkit.org/latest/_docs_IE_DG_supported_plugins_Supported_Devices.html#supported_layers)**
+<table class="doxtable">
+<tr>
+<th align="left">Layers </th><th align="center">GPU </th><th align="center">CPU </th><th align="center">MYRIAD(VPU) </th><th align="center">GNA </th><th align="center">FPGA </th><th align="center">ShapeInfer  </th></tr>
+<tr>
+<td align="left">Activation-Clamp </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-ELU </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-Leaky ReLU </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-PReLU </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-ReLU </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-ReLU6 </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-Sigmoid/Logistic </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Activation-TanH </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">ArgMax </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">BatchNormalization </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Concat </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Const </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Convolution-Dilated </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Convolution-Dilated 3D </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Convolution-Grouped </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Convolution-Grouped 3D </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Convolution-Ordinary </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Convolution-Ordinary 3D </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Crop </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">CTCGreedyDecoder </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Deconvolution </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Deconvolution 3D </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">DetectionOutput </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Eltwise-Max </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Eltwise-Mul </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Eltwise-Sum </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Flatten </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">FullyConnected (Inner Product) </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Gather </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Gemm </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">GRN </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Interp </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">LRN (Norm) </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">LSTMCell </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">GRUCell </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">RNNCell </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">LSTMSequence </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">GRUSequence </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">RNNSequence </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Memory </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">MVN </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported* </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Normalize </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Pad </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported* </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Permute </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Pooling(AVG,MAX) </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Pooling(AVG,MAX) 3D </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Power </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">PriorBox </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">PriorBoxClustered </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Proposal </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">PSROIPooling </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">RegionYolo </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">ReorgYolo </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Resample </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Reshape </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">RNN </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">ROIPooling </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">ScaleShift </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">SimplerNMS </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Slice </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">SoftMax </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">SpatialTransformer </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Split </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">TensorIterator </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Tile </td><td align="center">Supported </td><td align="center">Supported</td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<tr>
+<td align="left">Unpooling </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+<tr>
+<td align="left">Upsampling </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td></tr>
+</table>
   
 ## OpenVINO - Python API
 **https://software.intel.com/en-us/articles/OpenVINO-InferEngine#inpage-nav-9**
