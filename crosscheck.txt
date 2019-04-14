@@ -1,4 +1,4 @@
-$python3 /opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/python_samples/cross_check_tool/cross_check_tool.py \
+$python3 /opt/intel/openvino/deployment_tools/inference_engine/samples/python_samples/cross_check_tool/cross_check_tool.py \
 -i <path_to_input_image_or_multi_input_file> \
 -m lrmodels/tiny-YoloV3/FP16/frozen_tiny_yolo_v3.xml \
 -d MYRIAD \
