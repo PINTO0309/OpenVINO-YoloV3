@@ -69,10 +69,10 @@ $ python3 openvino_yolov3_MultiStick_test.py -numncs 4
 - Ubuntu 16.04 x86_64
 - RaspberryPi3
 - Raspbian Stretch armv7l
-- OpenVINO toolkit 2018 R5 (2018.5.445)
+- OpenVINO toolkit 2019 R1 (2019.1.094)
 - Python 3.5
 - OpenCV 4.0.1-openvino
-- Tensorflow v1.11.0 or Tensorflow-GPU v1.11.0 (pip install)
+- Tensorflow v1.12.0 or Tensorflow-GPU v1.12.0 (pip install)
 - YoloV3 (MS-COCO)
 - tiny-YoloV3 (MS-COCO)
 - USB Camera (PlaystationEye) / Movie file (mp4)
