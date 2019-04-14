@@ -234,7 +234,7 @@ $ python3 openvino_yolov3_MultiStick_test.py -numncs 4
 
 # Environment construction procedure
 ### 1. Work with LaptopPC (Ubuntu 16.04)
-1.OpenVINO R5 Full-Install. Execute the following command.
+1.OpenVINO 2019R1 Full-Install. Execute the following command.
 ```bash
 $ cd ~
 $ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1OW2HK4KsImPuqvHI7NZ7_w9P7rB80sBI" > /dev/null
