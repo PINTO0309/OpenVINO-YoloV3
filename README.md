@@ -237,13 +237,13 @@ $ python3 openvino_yolov3_MultiStick_test.py -numncs 4
 1.OpenVINO R5 Full-Install. Execute the following command.
 ```bash
 $ cd ~
-$ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1tlDW_kDOchWbkZbfy5WfbsW-b_GpXgr7" > /dev/null
+$ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1OW2HK4KsImPuqvHI7NZ7_w9P7rB80sBI" > /dev/null
 $ CODE="$(awk '/_warning_/ {print $NF}' /tmp/cookie)"
-$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1tlDW_kDOchWbkZbfy5WfbsW-b_GpXgr7" -o l_openvino_toolkit_p_2018.5.445.tgz
-$ tar -zxf l_openvino_toolkit_p_2018.5.445.tgz
-$ rm l_openvino_toolkit_p_2018.5.445.tgz
-$ cd l_openvino_toolkit_p_2018.5.445
-$ sudo -E ./install_cv_sdk_dependencies.sh
+$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1OW2HK4KsImPuqvHI7NZ7_w9P7rB80sBI" -o l_openvino_toolkit_p_2019.1.094.tgz
+$ tar -zxf l_openvino_toolkit_p_2019.1.094.tgz
+$ rm l_openvino_toolkit_p_2019.1.094.tgz
+$ cd l_openvino_toolkit_p_2019.1.094
+$ sudo -E ./install_openvino_dependencies.sh
 
 ## GUI version installer
 $ sudo ./install_GUI.sh
@@ -253,13 +253,13 @@ $ sudo ./install.sh
 ```
 2.Configure the Model Optimizer. Execute the following command.
 ```bash
-$ cd /opt/intel/computer_vision_sdk/install_dependencies
-$ sudo -E ./install_cv_sdk_dependencies.sh
+$ cd /opt/intel/openvino/install_dependencies/
+$ sudo -E ./install_openvino_dependencies.sh
 $ nano ~/.bashrc
-source /opt/intel/computer_vision_sdk/bin/setupvars.sh
+source /opt/intel/openvino/bin/setupvars.sh
 
 $ source ~/.bashrc
-$ cd /opt/intel/computer_vision_sdk/deployment_tools/model_optimizer/install_prerequisites
+$ cd /opt/intel/openvino/deployment_tools/model_optimizer/install_prerequisites/
 $ sudo ./install_prerequisites.sh
 ```
 3.【Optional execution】 Additional installation steps for the Intel® Movidius™ Neural Compute Stick v1 and Intel® Neural Compute Stick v2
@@ -279,7 +279,7 @@ $ rm 97-usbboot.rules
 ```
 4.【Optional execution】 Additional installation steps for processor graphics (GPU)
 ```bash
-$ cd /opt/intel/computer_vision_sdk/install_dependencies/
+$ cd /opt/intel/openvino/install_dependencies/
 $ sudo -E su
 $ uname -r
 4.15.0-42-generic #<--- display kernel version sample
