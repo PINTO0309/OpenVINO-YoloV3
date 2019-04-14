@@ -171,11 +171,11 @@ $ python3 openvino_yolov3_MultiStick_test.py -numncs 4
 <tr>
 <td align="left">Memory </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
 <tr>
-<td align="left">MVN </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported* </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<td align="left">MVN </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
 <tr>
 <td align="left">Normalize </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
 <tr>
-<td align="left">Pad </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported* </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
+<td align="left">Pad </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
 <tr>
 <td align="left">Permute </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Supported </td><td align="center">Not Supported </td><td align="center">Supported </td></tr>
 <tr>
