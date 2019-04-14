@@ -227,7 +227,7 @@ $ python3 openvino_yolov3_MultiStick_test.py -numncs 4
 </table>
   
 ## OpenVINO - Python API
-**https://software.intel.com/en-us/articles/OpenVINO-InferEngine#inpage-nav-9**
+**https://docs.openvinotoolkit.org/latest/_inference_engine_ie_bridges_python_docs_api_overview.html**
   
 <br>
 <br>
