@@ -1,6 +1,9 @@
 import sys, os, cv2, time, heapq, argparse
 import numpy as np, math
-from openvino.inference_engine import IENetwork, IEPlugin
+try:
+    from armv7l.openvino.inference_engine import IENetwork, IEPlugin
+except:
+    from openvino.inference_engine import IENetwork, IEPlugin
 import multiprocessing as mp
 from time import sleep
 import threading

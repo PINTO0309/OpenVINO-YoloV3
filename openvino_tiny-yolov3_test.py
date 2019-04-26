@@ -1,7 +1,10 @@
 import sys, os, cv2, time
 import numpy as np, math
 from argparse import ArgumentParser
-from openvino.inference_engine import IENetwork, IEPlugin
+try:
+    from armv7l.openvino.inference_engine import IENetwork, IEPlugin
+except:
+    from openvino.inference_engine import IENetwork, IEPlugin
 
 m_input_size = 416
 
