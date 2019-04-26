@@ -26,6 +26,7 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 [Mar 17, 2019]　Added a training procedure with your own data set.  
 [Apr 03, 2019]　Work on OpenVINO 2019 R1 started.  
 [Apr 14, 2019]　Compatible with 2019 R1.
+[Apr 26, 2019]　Compatible with 2019 R1.0.1.
 
 ## Operation sample
 **<CPP + YoloV3 - Intel Core i7-8750H, CPU Only, 4 FPS - 5 FPS>**  
@@ -70,7 +71,7 @@ $ python3 openvino_yolov3_MultiStick_test.py -numncs 4
 - Ubuntu 16.04 x86_64
 - RaspberryPi3
 - Raspbian Stretch armv7l
-- OpenVINO toolkit 2019 R1 (2019.1.094)
+- OpenVINO toolkit 2019 R1.0.1 (2019.1.133)
 - Python 3.5
 - OpenCV 4.1.0-openvino
 - Tensorflow v1.12.0 or Tensorflow-GPU v1.12.0 (pip install)
@@ -235,15 +236,15 @@ $ python3 openvino_yolov3_MultiStick_test.py -numncs 4
 
 # Environment construction procedure
 ### 1. Work with LaptopPC (Ubuntu 16.04)
-1.OpenVINO 2019R1 Full-Install. Execute the following command.
+1.OpenVINO 2019R1.0.1 Full-Install. Execute the following command.
 ```bash
 $ cd ~
-$ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1OW2HK4KsImPuqvHI7NZ7_w9P7rB80sBI" > /dev/null
+$ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1ciX7cHqCh8lLFYI0HKkhC3r_fMirrlKk" > /dev/null
 $ CODE="$(awk '/_warning_/ {print $NF}' /tmp/cookie)"
-$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1OW2HK4KsImPuqvHI7NZ7_w9P7rB80sBI" -o l_openvino_toolkit_p_2019.1.094.tgz
-$ tar -zxf l_openvino_toolkit_p_2019.1.094.tgz
-$ rm l_openvino_toolkit_p_2019.1.094.tgz
-$ cd l_openvino_toolkit_p_2019.1.094
+$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1ciX7cHqCh8lLFYI0HKkhC3r_fMirrlKk" -o l_openvino_toolkit_p_2019.1.133.tgz
+$ tar -zxf l_openvino_toolkit_p_2019.1.133.tgz
+$ rm l_openvino_toolkit_p_2019.1.133.tgz
+$ cd l_openvino_toolkit_p_2019.1.133
 $ sudo -E ./install_openvino_dependencies.sh
 
 ## GUI version installer
@@ -299,11 +300,11 @@ $ sudo reboot
 ```bash
 $ sudo apt update
 $ sudo apt upgrade
-$ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1gMNE3bA8_DVGwFxV4dJYTP3qmGwKnkX6" > /dev/null
+$ curl -sc /tmp/cookie "https://drive.google.com/uc?export=download&id=1NFt6g6ZkneHioU2P7rUJ8BFpQhIazbym" > /dev/null
 $ CODE="$(awk '/_warning_/ {print $NF}' /tmp/cookie)"
-$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1gMNE3bA8_DVGwFxV4dJYTP3qmGwKnkX6" -o l_openvino_toolkit_raspbi_p_2019.1.094.tgz
-$ tar -zxvf l_openvino_toolkit_raspbi_p_2019.1.094.tgz
-$ rm l_openvino_toolkit_raspbi_p_2019.1.094.tgz
+$ curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1NFt6g6ZkneHioU2P7rUJ8BFpQhIazbym" -o l_openvino_toolkit_raspbi_p_2019.1.133.tgz
+$ tar -zxvf l_openvino_toolkit_raspbi_p_2019.1.133.tgz
+$ rm l_openvino_toolkit_raspbi_p_2019.1.133.tgz
 $ sed -i "s|<INSTALLDIR>|$(pwd)/inference_engine_vpu_arm|" inference_engine_vpu_arm/bin/setupvars.sh
 ```
 2.Execute the following command.
