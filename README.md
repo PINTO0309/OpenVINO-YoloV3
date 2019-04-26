@@ -25,8 +25,8 @@ Inspired from **https://github.com/mystic123/tensorflow-yolo-v3.git**
 [Mar 01, 2019]　Improve accuracy. Fixed preprocessing and postprocessing bug.  
 [Mar 17, 2019]　Added a training procedure with your own data set.  
 [Apr 03, 2019]　Work on OpenVINO 2019 R1 started.  
-[Apr 14, 2019]　Compatible with 2019 R1.
-[Apr 26, 2019]　Compatible with 2019 R1.0.1.
+[Apr 14, 2019]　Compatible with 2019 R1.  
+[Apr 26, 2019]　Compatible with 2019 R1.0.1.  
 
 ## Operation sample
 **<CPP + YoloV3 - Intel Core i7-8750H, CPU Only, 4 FPS - 5 FPS>**  
