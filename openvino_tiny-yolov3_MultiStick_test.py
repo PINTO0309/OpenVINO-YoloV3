@@ -363,8 +363,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     number_of_ncs = args.number_of_ncs
-    camera_width = 320
-    camera_height = 240
+    camera_width = int(cv2.VideoCapture(0).get(cv2.CAP_PROP_FRAME_WIDTH))
+    camera_height = int(cv2.VideoCapture(0).get(cv2.CAP_PROP_FRAME_HEIGHT))
     vidfps = 30
 
     try:
