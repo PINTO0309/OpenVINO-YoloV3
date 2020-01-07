@@ -266,8 +266,8 @@ class NcsWorker(object):
         self.skip_frame = 0
         self.roop_frame = 0
         self.vidfps = vidfps
-        self.new_w = int(camera_width * min(self.m_input_size/camera_width, self.m_input_size/camera_height))
-        self.new_h = int(camera_height * min(self.m_input_size/camera_width, self.m_input_size/camera_height))
+        self.new_w = int(camera_width * self.m_input_size/camera_width)
+        self.new_h = int(camera_height * self.m_input_size/camera_height)
 
     def image_preprocessing(self, color_image):
         resized_image = cv2.resize(color_image, (self.new_w, self.new_h), interpolation = cv2.INTER_CUBIC)

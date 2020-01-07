@@ -153,8 +153,8 @@ def main_IE_infer():
     vidfps = 0
     skip_frame = 0
     elapsedTime = 0
-    new_w = int(camera_width * min(m_input_size/camera_width, m_input_size/camera_height))
-    new_h = int(camera_height * min(m_input_size/camera_width, m_input_size/camera_height))
+    new_w = int(camera_width * m_input_size/camera_width)
+    new_h = int(camera_height * m_input_size/camera_height)
 
     args = build_argparser().parse_args()
     #model_xml = "lrmodels/tiny-YoloV3/FP32/frozen_tiny_yolo_v3.xml" #<--- CPU
